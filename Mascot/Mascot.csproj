@@ -4,31 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3970B445-E0A4-43AF-B54D-52871714F6BE}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{AE7CE367-0180-4E24-8E6E-77A0868BCC3F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Mascot</RootNamespace>
     <AssemblyName>Mascot</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,12 +34,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Drawing.Common.5.0.2\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -67,17 +57,32 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="XamlAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=20a987d8023d9690, processorArchitecture=MSIL">
+      <HintPath>packages\XamlAnimatedGif.2.0.2\lib\net45\XamlAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Resources\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="API\BaiduUnit.cs" />
+    <Compile Include="Dialog.xaml.cs">
+      <DependentUpon>Dialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Notification.cs" />
+    <Compile Include="PutInTray.cs" />
+    <Compile Include="API\Win32.cs" />
+    <Page Include="Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Resources\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -87,6 +92,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Angent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -104,6 +110,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -113,21 +121,73 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utils\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <Resource Include="Resources\frame\shime1.png" />
+    <Resource Include="Resources\frame\shime10.png" />
+    <Resource Include="Resources\frame\shime11.png" />
+    <Resource Include="Resources\frame\shime12.png" />
+    <Resource Include="Resources\frame\shime13.png" />
+    <Resource Include="Resources\frame\shime14.png" />
+    <Resource Include="Resources\frame\shime15.png" />
+    <Resource Include="Resources\frame\shime16.png" />
+    <Resource Include="Resources\frame\shime17.png" />
+    <Resource Include="Resources\frame\shime18.png" />
+    <Resource Include="Resources\frame\shime19.png" />
+    <Resource Include="Resources\frame\shime2.png" />
+    <Resource Include="Resources\frame\shime20.png" />
+    <Resource Include="Resources\frame\shime21.png" />
+    <Resource Include="Resources\frame\shime22.png" />
+    <Resource Include="Resources\frame\shime23.png" />
+    <Resource Include="Resources\frame\shime24.png" />
+    <Resource Include="Resources\frame\shime25.png" />
+    <Resource Include="Resources\frame\shime26.png" />
+    <Resource Include="Resources\frame\shime27.png" />
+    <Resource Include="Resources\frame\shime28.png" />
+    <Resource Include="Resources\frame\shime29.png" />
+    <Resource Include="Resources\frame\shime3.png" />
+    <Resource Include="Resources\frame\shime30.png" />
+    <Resource Include="Resources\frame\shime31.png" />
+    <Resource Include="Resources\frame\shime32.png" />
+    <Resource Include="Resources\frame\shime33.png" />
+    <Resource Include="Resources\frame\shime34.png" />
+    <Resource Include="Resources\frame\shime35.png" />
+    <Resource Include="Resources\frame\shime36.png" />
+    <Resource Include="Resources\frame\shime37.png" />
+    <Resource Include="Resources\frame\shime38.png" />
+    <Resource Include="Resources\frame\shime39.png" />
+    <Resource Include="Resources\frame\shime4.png" />
+    <Resource Include="Resources\frame\shime40.png" />
+    <Resource Include="Resources\frame\shime41.png" />
+    <Resource Include="Resources\frame\shime42.png" />
+    <Resource Include="Resources\frame\shime43.png" />
+    <Resource Include="Resources\frame\shime44.png" />
+    <Resource Include="Resources\frame\shime45.png" />
+    <Resource Include="Resources\frame\shime46.png" />
+    <Resource Include="Resources\frame\shime47.png" />
+    <Resource Include="Resources\frame\shime48.png" />
+    <Resource Include="Resources\frame\shime49.png" />
+    <Resource Include="Resources\frame\shime5.png" />
+    <Resource Include="Resources\frame\shime50.png" />
+    <Resource Include="Resources\frame\shime51.png" />
+    <Resource Include="Resources\frame\shime52.png" />
+    <Resource Include="Resources\frame\shime53.png" />
+    <Resource Include="Resources\frame\shime54.png" />
+    <Resource Include="Resources\frame\shime55.png" />
+    <Resource Include="Resources\frame\shime56.png" />
+    <Resource Include="Resources\frame\shime57.png" />
+    <Resource Include="Resources\frame\shime58.png" />
+    <Resource Include="Resources\frame\shime59.png" />
+    <Resource Include="Resources\frame\shime6.png" />
+    <Resource Include="Resources\frame\shime60.png" />
+    <Resource Include="Resources\frame\shime61.png" />
+    <Resource Include="Resources\frame\shime7.png" />
+    <Resource Include="Resources\frame\shime8.png" />
+    <Resource Include="Resources\frame\shime9.png" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
+    <Resource Include="Resources\tip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Tips.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
