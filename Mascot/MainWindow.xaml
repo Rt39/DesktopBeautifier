@@ -3,19 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Mascot"
-        xmlns:WinFormHost="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"       
-        xmlns:WinFormControls="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         mc:Ignorable="d"
-        Title="MainWindow" Visibility="Visible" Opacity="1" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"  Foreground="Transparent" BorderBrush="Transparent" Background="Transparent" MouseLeftButtonDown="MouseLeftButtonDown_1" MouseLeftButtonUp="MouseLeftButtonUp_1" WindowStyle="None" MouseRightButtonDown="MouseRightButtonDown_1" KeyDown="EnterKey_Down">
+        Title="MainWindow" Visibility="Visible" Opacity="1" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"  Foreground="Transparent" BorderBrush="Transparent" Background="Transparent" MouseLeftButtonDown="MouseLeftButtonDown_1" MouseLeftButtonUp="MouseLeftButtonUp_1" WindowStyle="None" MouseRightButtonDown="MouseRightButtonDown_1" d:DesignWidth="1045.2" ShowInTaskbar="False">
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="-1" />
     </WindowChrome.WindowChrome>
     <Grid x:Name="Grid" Loaded="Main_Load" Visibility="Visible">
-        <Image x:Name="backImage" Source="pack://application:,,,/Resources/frame/shime1.png" Cursor="None" OpacityMask="Black">
+        <Image x:Name="backImage" Source="pack://application:,,,/Resources/frame/shime1.png" Cursor="None" OpacityMask="Black" Margin="-10,-10,9.8,10.2">
             <Image.BitmapEffect>
                 <OuterGlowBitmapEffect GlowColor="White" GlowSize="2" />
             </Image.BitmapEffect>
         </Image>
+        <Viewbox HorizontalAlignment="Left" Height="73" Margin="751,40,0,0" VerticalAlignment="Top" Width="271"/>
     </Grid>
 </Window>

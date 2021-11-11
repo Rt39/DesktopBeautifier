@@ -1,0 +1,1 @@
+在发出通知的类声明一个Notification类对象或者继承Notification,并在发出通知的类中触发。在被通知的类中订阅事件。如class1通知class2，在class1中声明public Notification Notification = new Notification();Notification.OnUpdateEvent(this, new EventArgs());//触发在class2中class2对象.Notification.UpdateEvent += new EventHandler(UpdateMenu);
