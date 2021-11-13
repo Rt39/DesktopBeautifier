@@ -77,7 +77,7 @@ namespace ProcessMonitor {
         private void ServerThread() {
             while (true) {
                 try {
-                    using (pipeServer = new NamedPipeServerStream("testpipe", PipeDirection.Out, 1, PipeTransmissionMode.Byte, PipeOptions.WriteThrough, 4096, 4096, ps)) {
+                    using (pipeServer = new NamedPipeServerStream("processmonitor", PipeDirection.Out, 1, PipeTransmissionMode.Byte, PipeOptions.WriteThrough, 4096, 4096, ps)) {
                         pipeServer.WaitForConnection();
                         WriteLog("连接成功");
 
