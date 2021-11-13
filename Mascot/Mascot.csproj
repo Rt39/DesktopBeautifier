@@ -72,6 +72,7 @@
     </ApplicationDefinition>
     <Compile Include="API\BaiduUnit.cs" />
     <Compile Include="Classes\MenuNode.cs" />
+    <Compile Include="Classes\PipeClient.cs" />
     <Compile Include="Forms\Dialog.xaml.cs">
       <DependentUpon>Dialog.xaml</DependentUpon>
     </Compile>
@@ -205,6 +206,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\test.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{15E23515-5223-42E2-840D-F9A67F4739EA}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

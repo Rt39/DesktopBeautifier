@@ -12,7 +12,7 @@ namespace Mascot.Classes {
     public static class PipeClient {
         public static HashSet<ApplicationInfo> GetApplicationInfos() {
             var pipeClient =
-                    new NamedPipeClientStream(".", "testpipe",
+                    new NamedPipeClientStream(".", "processmonitor",
                         PipeDirection.In, PipeOptions.None,
                         System.Security.Principal.TokenImpersonationLevel.Impersonation);
             Console.WriteLine("Connecting to server...\n");
