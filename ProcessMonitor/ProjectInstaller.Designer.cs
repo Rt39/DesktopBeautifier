@@ -35,7 +35,7 @@ namespace ProcessMonitor {
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.Description = "统计您的应用使用时间和打开次数";
+            this.serviceInstaller1.Description = "统计应用使用时间和使用频率";
             this.serviceInstaller1.DisplayName = "Process Monitor";
             this.serviceInstaller1.ServiceName = "ProcessMonitorSvc";
             // 
