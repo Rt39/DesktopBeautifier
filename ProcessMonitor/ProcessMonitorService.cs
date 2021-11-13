@@ -16,33 +16,44 @@ using Utils;
 
 namespace ProcessMonitor {
     public partial class ProcessMonitorService : ServiceBase {
-        private NamedPipeServerStream pipeServer;
-        private Thread thread;
-        private static readonly string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DestopBeautifer", "monitor.log");
+        private NamedPipeServerStream _pipeServer;  // 管道服务端
+        private Thread _pipeListenThread; // 监听管道连接
+        private System.Timers.Timer _processMonitorTimer;   // 进程监视计时器
+        private static readonly string _folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DesktopBeautifier", "ProcessMonitor");
+        private static readonly string _logPath = Path.Combine(_folder, "monitor.log");
 
-        private static PipeSecurity ps;
+        // 管道安全策略，设置为非管理员程序也可以连接
+        private static readonly PipeSecurity _ps;
         static ProcessMonitorService() {
-            ps = new PipeSecurity();
+            _ps = new PipeSecurity();
             SecurityIdentifier sid = new SecurityIdentifier(System.Security.Principal.WellKnownSidType.WorldSid, null);
-            ps.AddAccessRule(new PipeAccessRule(sid, PipeAccessRights.Read, System.Security.AccessControl.AccessControlType.Allow));
+            _ps.AddAccessRule(new PipeAccessRule(sid, PipeAccessRights.Read, System.Security.AccessControl.AccessControlType.Allow));
         }
 
-        private HashSet<ApplicationInfo> applicationInfos = new HashSet<ApplicationInfo>();
-        private HashSet<ApplicationBasic> processContinuous = new HashSet<ApplicationBasic>();
+        // 全部的应用程序信息
+        private HashSet<ApplicationInfo> _applicationInfos = new HashSet<ApplicationInfo>();
+        // 上一次统计在运行的应用，为了计算用户是否重新打开该程序
+        private HashSet<ApplicationBasic> _processContinuous = new HashSet<ApplicationBasic>();
 
         public ProcessMonitorService() {
             InitializeComponent();
         }
 
         protected override void OnStart(string[] args) {
-            thread = new Thread(ServerThread);
-            thread.Start();
-            System.Timers.Timer timer = new System.Timers.Timer(ApplicationInfo.CHECK_INTERVAL);
-            timer.Elapsed += CheckProcess;
-            timer.Start();
+            // 创建目录
+            if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
             WriteLog("服务启动");
+
+            // 启动管道
+            _pipeListenThread = new Thread(ServerThread);
+            _pipeListenThread.Start();
+            // 启动进程监视器
+            _processMonitorTimer = new System.Timers.Timer(ApplicationInfo.CHECK_INTERVAL);
+            _processMonitorTimer.Elapsed += CheckProcess;
+            _processMonitorTimer.Start();
         }
 
+        // 监视进程
         private void CheckProcess(object sender, System.Timers.ElapsedEventArgs e) {
             WriteLog("检查信息");
             HashSet<ApplicationBasic> processPaths = new HashSet<ApplicationBasic>();
@@ -59,15 +70,15 @@ namespace ProcessMonitor {
                 processPaths.Add(new ApplicationBasic { ApplicationName = p.ProcessName, ApplicationPath = path });
             }
             foreach (var path in processPaths) {
-                var t = applicationInfos.FirstOrDefault(info => info.ApplicationPath == path.ApplicationPath);
+                var t = _applicationInfos.FirstOrDefault(info => info.ApplicationPath == path.ApplicationPath);
                 if (t == null) {
-                    applicationInfos.Add(new ApplicationInfo(path));
-                    t = applicationInfos.FirstOrDefault(info => info.ApplicationPath == path.ApplicationPath);
+                    _applicationInfos.Add(new ApplicationInfo(path));
+                    t = _applicationInfos.FirstOrDefault(info => info.ApplicationPath == path.ApplicationPath);
                 }
-                if (processContinuous.Contains(path)) t.IncreaseRunInterval();
+                if (_processContinuous.Contains(path)) t.IncreaseRunInterval();
                 else { t.IncreaseRunInterval(); t.IncreaseClick(); }
             }
-            processContinuous = processPaths;
+            _processContinuous = processPaths;
         }
 
         protected override void OnStop() {
@@ -77,13 +88,13 @@ namespace ProcessMonitor {
         private void ServerThread() {
             while (true) {
                 try {
-                    using (pipeServer = new NamedPipeServerStream("processmonitor", PipeDirection.Out, 1, PipeTransmissionMode.Byte, PipeOptions.WriteThrough, 4096, 4096, ps)) {
-                        pipeServer.WaitForConnection();
+                    using (_pipeServer = new NamedPipeServerStream("processmonitor", PipeDirection.Out, 1, PipeTransmissionMode.Byte, PipeOptions.WriteThrough, 4096, 4096, _ps)) {
+                        _pipeServer.WaitForConnection();
                         WriteLog("连接成功");
 
-                        using (StreamWriter writer = new StreamWriter(pipeServer))
+                        using (StreamWriter writer = new StreamWriter(_pipeServer))
                         using (JsonWriter jw = new JsonTextWriter(writer)) {
-                            new JsonSerializer().Serialize(jw, applicationInfos);
+                            new JsonSerializer().Serialize(jw, _applicationInfos);
                         }
                     }
                 }
@@ -95,7 +106,7 @@ namespace ProcessMonitor {
         }
 
         private void WriteLog(string s) {
-            using (FileStream stream = new FileStream(filePath, FileMode.Append))
+            using (FileStream stream = new FileStream(_logPath, FileMode.Append))
             using (StreamWriter writer = new StreamWriter(stream)) {
                 writer.WriteLine($"{DateTime.Now}, {s}");
             }
