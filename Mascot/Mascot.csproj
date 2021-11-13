@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API\BaiduUnit.cs" />
+    <Compile Include="Classes\DesktopFileWatcher.cs" />
     <Compile Include="Classes\MenuNode.cs" />
     <Compile Include="Classes\PipeClient.cs" />
     <Compile Include="Forms\Dialog.xaml.cs">
@@ -79,6 +80,7 @@
     <Compile Include="Forms\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UtilClass\FileWatchSettings.cs" />
     <Compile Include="UtilClass\Notification.cs" />
     <Compile Include="UtilClass\PutInTray.cs" />
     <Compile Include="API\Win32.cs" />
