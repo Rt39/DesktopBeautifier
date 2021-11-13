@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FileWatch")]
+[assembly: AssemblyTitle("ProcessMonitor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FileWatch")]
+[assembly: AssemblyProduct("ProcessMonitor")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dbcde5e4-b04a-45a2-a5cc-777a0481bcc7")]
+[assembly: Guid("83d3abe8-1ae4-4815-be51-e943dc9f642e")]
 
 // Version information for an assembly consists of the following four values:
 //
