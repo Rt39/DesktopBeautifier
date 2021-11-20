@@ -19,7 +19,7 @@ namespace ProcessMonitor {
         private NamedPipeServerStream _pipeServer;  // 管道服务端
         private Thread _pipeListenThread; // 监听管道连接
         private System.Timers.Timer _processMonitorTimer;   // 进程监视计时器
-        private static readonly string _folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DesktopBeautifier", "ProcessMonitor");
+        private static readonly string _folder = Path.Combine(Utils.Definitions.SettingFolder, "ProcessMonitor");
         private static readonly string _logPath = Path.Combine(_folder, "monitor.log");
 
         // 管道安全策略，设置为非管理员程序也可以连接

@@ -15,9 +15,7 @@ namespace Mascot.Classes {
                     new NamedPipeClientStream(".", "processmonitor",
                         PipeDirection.In, PipeOptions.None,
                         System.Security.Principal.TokenImpersonationLevel.Impersonation);
-            Console.WriteLine("Connecting to server...\n");
             pipeClient.Connect(100);
-            //Miao miao;
             HashSet<ApplicationInfo> applicationInfos;
             using (StreamReader reader = new StreamReader(pipeClient)) {
                 string s = reader.ReadToEnd();
