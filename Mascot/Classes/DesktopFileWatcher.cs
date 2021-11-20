@@ -30,9 +30,7 @@ namespace Mascot.Classes {
                 {
                     ExtentionExceptions = ".lnk"
                 };
-                using (StreamWriter sw = new StreamWriter(_settingFilePath))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                    new JsonSerializer().Serialize(writer, _settingFilePath);
+                Serialize();
             }
             FileWatchSettings.IgnoreFolderChanged += ChangeIgnoreFolder;
 
@@ -56,8 +54,16 @@ namespace Mascot.Classes {
             Directory.Move(e.FullPath, Path.Combine(destDirPath, e.Name));
         }
 
+        private void Serialize() {
+            using (FileStream fs = new FileStream(_settingFilePath, FileMode.OpenOrCreate | FileMode.Truncate))
+            using (StreamWriter sw = new StreamWriter(fs))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+                new JsonSerializer().Serialize(writer, FileWatchSettings);
+        }
+
         public void Dispose() {
             _fileSystemWatcher.Dispose();
+            Serialize();
         }
     }
 }
