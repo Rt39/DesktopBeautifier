@@ -57,7 +57,7 @@ namespace Mascot
              * 如果不是管理员，则使用启动对象启动程序，以确保使用管理员身份运行
              */
             //获得当前登录的Windows用户标示
-            System.Security.Principal.WindowsIdentity identity = System.Security.Principal.WindowsIdentity.GetCurrent();
+            /*System.Security.Principal.WindowsIdentity identity = System.Security.Principal.WindowsIdentity.GetCurrent();
             //创建Windows用户主题
             System.Windows.Forms.Application.EnableVisualStyles();
 
@@ -83,7 +83,12 @@ namespace Mascot
                 Process.Start(startInfo);
                 //退出
                 System.Windows.Forms.Application.Exit();
-            }
+            }*/
+        }
+        protected override void OnExit(ExitEventArgs e)
+        {
+
+            base.OnExit(e);
         }
     }
 }

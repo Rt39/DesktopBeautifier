@@ -71,9 +71,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="API\BaiduUnit.cs" />
+    <Compile Include="Classes\ApplicationInfo.cs" />
+    <Compile Include="Classes\DesktopFileWatcher.cs" />
+    <Compile Include="Classes\FastPath.cs" />
     <Compile Include="Classes\MenuNode.cs" />
+    <Compile Include="Forms\File.xaml.cs">
+      <DependentUpon>File.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilClass\Definitions.cs" />
+    <Compile Include="UtilClass\FileWatchSettings.cs" />
+    <Compile Include="UtilClass\JudgeUtil.cs" />
+    <Compile Include="Classes\PipeClient.cs" />
     <Compile Include="Forms\Dialog.xaml.cs">
       <DependentUpon>Dialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Process.xaml.cs">
+      <DependentUpon>Process.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -81,7 +94,16 @@
     <Compile Include="UtilClass\Notification.cs" />
     <Compile Include="UtilClass\PutInTray.cs" />
     <Compile Include="API\Win32.cs" />
+    <Compile Include="UtilClass\Utils.cs" />
     <Page Include="Forms\Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\File.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Process.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,6 +227,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\test.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Forms\icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
