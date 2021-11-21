@@ -17,6 +17,7 @@ namespace Mascot
             this.Name = Name;
             Status = 0;
             resDir = $"../../Resources/{Name}/frame";
+            if (!Directory.Exists(Definitions.SettingFolder)) Directory.CreateDirectory(Definitions.SettingFolder);
             if (!File.Exists(StatusPath)) SaveStatus();
             using (FileStream fileStream = new FileStream(StatusPath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
