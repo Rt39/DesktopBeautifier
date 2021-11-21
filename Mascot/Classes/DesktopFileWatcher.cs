@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mascot.Classes
+namespace Mascot
 {
     public class DesktopFileWatcher : IDisposable
     {
-        private static readonly string _folder = Path.Combine(Utils.Definitions.SettingFolder, "FileWatch");
+        private static readonly string _folder = Path.Combine(Definitions.SettingFolder, "FileWatch");
         private static readonly string _settingFilePath = Path.Combine(_folder, "setting.json");
 
-        private readonly FileSystemWatcher _fileSystemWatcher = new FileSystemWatcher(System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+        private readonly FileSystemWatcher _fileSystemWatcher = new FileSystemWatcher(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
         public FileWatchSettings FileWatchSettings { get; set; }
 
         public event EventHandler<FileSystemEventArgs> NewFile;
@@ -28,6 +28,11 @@ namespace Mascot.Classes
                 using (StreamReader sr = new StreamReader(_settingFilePath))
                     setting = sr.ReadToEnd();
                 FileWatchSettings = JsonConvert.DeserializeObject<FileWatchSettings>(setting);
+                if (FileWatchSettings.ArchiveDirectory == null)
+                {
+                    FileWatchSettings.ArchiveDirectory = new Dictionary<string, string>();
+                    Serialize();
+                }
             }
             else
             {
@@ -39,8 +44,9 @@ namespace Mascot.Classes
             }
             FileWatchSettings.IgnoreFolderChanged += ChangeIgnoreFolder;
 
-            _fileSystemWatcher.NotifyFilter = FileWatchSettings.IsIgnoreFolder ? NotifyFilters.FileName : NotifyFilters.FileName | NotifyFilters.DirectoryName;
-            _fileSystemWatcher.Created += OnCreate;
+            _fileSystemWatcher.NotifyFilter = NotifyFilters.Attributes| NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            //_fileSystemWatcher.NotifyFilter = FileWatchSettings.IsIgnoreFolder ? NotifyFilters.FileName : NotifyFilters.FileName | NotifyFilters.DirectoryName;
+            _fileSystemWatcher.Created += new FileSystemEventHandler(OnCreate);
             _fileSystemWatcher.EnableRaisingEvents = true;
         }
 
@@ -58,11 +64,6 @@ namespace Mascot.Classes
             _fileSystemWatcher.NotifyFilter = FileWatchSettings.IsIgnoreFolder ? NotifyFilters.FileName : NotifyFilters.FileName | NotifyFilters.DirectoryName;
         }
 
-        public void MoveToFolder(FileSystemEventArgs e, string destDirPath)
-        {
-            Directory.Move(e.FullPath, Path.Combine(destDirPath, e.Name));
-        }
-
         private void Serialize()
         {
             using (FileStream fs = new FileStream(_settingFilePath, FileMode.OpenOrCreate))
@@ -70,10 +71,9 @@ namespace Mascot.Classes
             using (JsonWriter writer = new JsonTextWriter(sw))
                 new JsonSerializer().Serialize(writer, FileWatchSettings);
         }
-
         public void Dispose()
         {
-            _fileSystemWatcher.Dispose();
+            //_fileSystemWatcher.Dispose();
             Serialize();
         }
     }

@@ -17,6 +17,8 @@ namespace Mascot
         private DateTime EndTime;
         private DispatcherTimer notifystate = new DispatcherTimer();
         private List<MenuNode> list;
+        //菜单设置文件
+        private string path = Path.Combine(Definitions.SettingFolder, "Menu.gra");
         public System.Windows.Forms.MenuItem picmove = new System.Windows.Forms.MenuItem("禁止移动");
         public System.Windows.Forms.MenuItem windowtop = new System.Windows.Forms.MenuItem("顶置");
         public static System.Windows.Forms.MenuItem startup = new System.Windows.Forms.MenuItem("开启");
@@ -53,9 +55,16 @@ namespace Mascot
             exit.Click += new EventHandler(exit_Click);
             notifyIcon.ContextMenu = new ContextMenu(new MenuItem[] { LoadNode(0), exit });
         }
-        private void LoadMenu(string Path="Menu.gra")
+        /// <summary>
+        /// 加载菜单
+        /// </summary>
+        private void LoadMenu()
         {
-            using (FileStream fileStream = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read))
+            if (!File.Exists(path))
+            {
+                SaveMenu();
+            }
+            using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 BinaryFormatter b = new BinaryFormatter();
                 list = (List<MenuNode>)b.Deserialize(fileStream);
@@ -81,9 +90,22 @@ namespace Mascot
                 return i;
             }
         }
-        private void SaveMenu(string Path="Menu.gra")
-        {
-            using(FileStream fileStream = new FileStream(Path, FileMode.Create))
+        /// <summary>
+        /// 保存菜单
+        /// </summary>
+        private void SaveMenu()
+        { 
+            string Dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DestopBeautifer");
+            if (!Directory.Exists(Dir))
+            {
+                Directory.CreateDirectory(Dir);
+            }
+            if (!File.Exists(path))
+            {
+                list = new List<MenuNode>();
+                MenuNode.Init(ref list);
+            }
+            using (FileStream fileStream = new FileStream(path, FileMode.Create))
             {
                 BinaryFormatter b = new BinaryFormatter();
                 b.Serialize(fileStream, list);
@@ -103,15 +125,26 @@ namespace Mascot
             msg += "精灵状态：" + mainwindow.angent.GetStatus() + "\r\n";
             System.Windows.MessageBox.Show(msg);
         }
+        /// <summary>
+        /// 绑定菜单和功能的处理函数
+        /// </summary>
+        /// <param name="item"></param>
         private void EventBinding(ref MenuItem item)
         {
             string util = item.Text;
             switch (util)
             {
                 case "设置":item.Click += new EventHandler(set_Click);break;
+                case "最近使用":item.Click += new EventHandler(Utils.Process_Click);break;
+                case "最近文件":item.Click += new EventHandler(Utils.RecentFile_Click);break;
                 default: break;
             }
         }
+        /// <summary>
+        /// 设置
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void set_Click(object sender, EventArgs e)
         {
             Forms.Settings settings = new Forms.Settings();
@@ -128,7 +161,6 @@ namespace Mascot
                                                 MessageBoxResult.No) == MessageBoxResult.Yes)
             {
                 notifyIcon.Dispose();
-                //System.Windows.Application.Current.Shutdown();
                 Environment.Exit(0);
             }
         }

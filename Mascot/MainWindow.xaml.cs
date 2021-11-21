@@ -18,19 +18,20 @@ namespace Mascot
     {
         public Angent angent = new Angent("Test");
         Notification Note = new Notification();
-        BaiduUnit BaiduUnit = new BaiduUnit();
-        PutInTray Tray;
+        BaiduUnit BaiduUnit = new BaiduUnit();//百度机器人API
+        PutInTray Tray;   //托盘
         private Timer timer=new Timer();
+        private DateTime sTime = DateTime.Now;
+        private uint askTimes = 0; //询问次数
         private int n = 0;
         private Dialog d;
-        XmlDocument xml = new XmlDocument();
+        private DesktopFileWatcher FileWatcher = new DesktopFileWatcher();//桌面文件监视
         private List<string> tips = new List<string>();
-        Random r = new Random(0);
+        Random r = new Random(10); //随机得到XMl文件中设置好的对话
         public MainWindow()
         {
             InitializeComponent();
         }
-
         private void Main_Load(object sender, RoutedEventArgs e)
         {
             var desktopWorkingArea = Screen.PrimaryScreen.WorkingArea;
@@ -38,18 +39,40 @@ namespace Mascot
             this.Top = desktopWorkingArea.Bottom - this.Height+300;
             Note.MsgEvent += new EventHandler(Notification);
             BaiduUnit.MsgEvent += new EventHandler(Notification);
+            FileWatcher.NewFile += new EventHandler<FileSystemEventArgs>(FileWatcher_NewFile);
             GetTips();
             timer.Interval = 300;
             timer.Tick += new EventHandler(timer_Tick);
-            if(!File.Exists("Status.xml"))Angent.SaveStatus();
+            if (!Directory.Exists(Definitions.SettingFolder))
+                Directory.CreateDirectory(Definitions.SettingFolder);
             Tray = new PutInTray(this);//托盘
             Tray.Init();
             timer.Start();
         }
+        /// <summary>
+        /// 监听得到新文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FileWatcher_NewFile(object sender, FileSystemEventArgs e)
+        {
+            if (Utils.flag) return;
+            Utils.flag = true;
+            this.Dispatcher.Invoke(new Action(() =>
+            {
+                Forms.File fileForm = new Forms.File(ref FileWatcher,e.Name);
+                Notification("新文件被发现了哦~", new EventArgs());
+                fileForm.WindowStartupLocation = WindowStartupLocation.Manual;
+                fileForm.Top = 350;
+                fileForm.Left = 1100;
+                fileForm.ShowDialog();
+            }));
+        }
+        //获得XML中设置的对话
         private void GetTips()
         {
             XmlDocument xml = new XmlDocument();
-            xml.LoadXml(Mascot.Properties.Resources.Tips);
+            xml.LoadXml(Properties.Resources.Tips);
             XmlNode root = xml.SelectSingleNode("/tips");
             XmlNodeList tipList = root.ChildNodes;
             foreach(XmlElement i in tipList)
@@ -78,7 +101,6 @@ namespace Mascot
         private void MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
-         // Note.test();
             if(d!=null)
             {
                 d.Left = this.Left -310;
@@ -95,7 +117,6 @@ namespace Mascot
                 d.Show();
             }
         }
-
         private void MouseRightButtonDown_1(object sender, MouseButtonEventArgs e)
         {
             timer.Stop();
@@ -105,11 +126,22 @@ namespace Mascot
                 d.Show();
             }
             d.QueryBox.Visibility = Visibility.Visible;
-            Notification("有什么问题，问我吧！", new EventArgs());
+            askTimes++;
+            string s = string.Empty;
+            if (askTimes%10==0)s= angent.ChangeStatus(true);
+            Notification("有什么问题，问我吧! "+s, new EventArgs());
         }
         private void Notification(object sender,EventArgs e)
         {
             string s = sender as string;
+            if(d==null)
+            {
+                this.Dispatcher.Invoke(new Action(() =>
+                {
+                    d = new Dialog(this.Left, this.Top, "");
+                    d.Show();
+                }));
+            }
             d.Dispatcher.Invoke(() =>
             {
                 System.Windows.Documents.FlowDocument doc =d.TextBox.Document;
