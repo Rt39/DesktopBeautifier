@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -15,68 +17,47 @@ using Microsoft.Win32;
 using System.IO;
 using System.Collections;
 using WallPaper.Clawer;
+using WallPaper.utils;
 
 namespace WallPaper {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
 
-    /*TODO: 拆分功能，将不同的功能放在不同的类中*/
-    /*TODO: 完善爬虫功能*/
     /*TODO: 完善通知功能*/
-    /*建议：使用MVVM模式，充分利用wpf的绑定机制*/
     public partial class MainWindow : Window {
-        /*TODO: 补全public和private*/
-        string fileName;
-        string filePath;
-        string keyWord;
-        string folderFullName;
+        private string fileName;
+        private string filePath;
+        private string folderFullName;
         BitmapImage bitmapImage;
 
         DirectoryInfo directory;
         ArrayList filesArray;
         ChangeWallPaper cwp;
-        int fileIndex;
+        private int fileIndex;
         bool fitToScreen = true;
-        double rotateAngle = 0;
+        private double rotateAngle = 0;
 
-
-        public MainWindow() {
+        public MainWindow(string randomnum) {
             InitializeComponent();
+            string RandomNum = randomnum;
 
-            //爬虫爬取、下载
-            //WallPaperClawer wallPaperClawer = new WallPaperClawer();
-            //keyWord = "Klose";
-            //wallPaperClawer.ChooseWeb(1, keyWord);
-            //wallPaperClawer.ClawerWeb();
-
-            //读取文件、show第一张图片
+            //读取文件、显示第一张图片
             /*TODO: 添加文件夹为空的异常处理*/
-            folderFullName = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"/File/";
+            folderFullName = "C:\\Windows\\Temp\\" + RandomNum;
             directory = new DirectoryInfo(folderFullName);
             filesArray = null;
             filesArray = new ArrayList();
-            if (directory.GetFiles("*.jpg") != null) {
-                foreach (FileInfo fileinfo in directory.GetFiles("*.jpg")) {
-                    filesArray.Add(fileinfo);
-                }
-            }
-
-            if (directory.GetFiles("*.png") != null) {
-                foreach (FileInfo fileinfo in directory.GetFiles("*.png")) {
+            if (directory.GetFiles("*.jpg") != null && directory.GetFiles("*.png") != null) {
+                foreach (FileInfo fileinfo in directory.GetFiles()) {
                     filesArray.Add(fileinfo);
                 }
             }
             fileIndex = 0;//自动打开第一个图片的index为1
-
-            this.fileName = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "File\\" + ((FileInfo)(filesArray[(fileIndex) % (filesArray.Count)])).Name;
+            this.fileName = "C:\\Windows\\Temp\\" + RandomNum + "\\" + ((FileInfo)(filesArray[(fileIndex) % (filesArray.Count)])).Name;
             filePath = fileName.Substring(0, fileName.LastIndexOf('\\'));
-
-
-
             showPicture(this.fileName);
 
-            //this.border1.Visibility = Visibility.Hidden;
             this.SizeChanged += new SizeChangedEventHandler(Window1_SizeChanged);
         }
 
@@ -84,9 +65,6 @@ namespace WallPaper {
             if (fileName != null) {
                 showPicture(fileName);
             }
-        }
-        private void SetFilesArray() {
-
         }
 
         private void OpenFileClick(object sender, RoutedEventArgs e) {
@@ -96,39 +74,19 @@ namespace WallPaper {
                 fileName = dlg.FileName;
                 showPicture(fileName);
 
-
                 filePath = fileName.Substring(0, fileName.LastIndexOf('\\'));//打开的文件路径
-
-                /*
-                DirectoryInfo TheFolder = new DirectoryInfo(folderFullName);
-                foreach (FileInfo NextFile in TheFolder.GetFiles())
-                    filesArray.Add(NextFile.Name);
-                */
+                
                 directory = new DirectoryInfo(filePath);
                 filesArray = null;
                 filesArray = new ArrayList();
-
-                /*
+                                
                 if (directory.GetFiles("*.jpg") != null&&directory.GetFiles("*.png") != null)
                 {
                     foreach (FileInfo fileinfo in directory.GetFiles())
                     {
                         filesArray.Add(fileinfo);
                     }
-                }
-                */
-
-                if (directory.GetFiles("*.jpg") != null) {
-                    foreach (FileInfo fileinfo in directory.GetFiles("*.jpg")) {
-                        filesArray.Add(fileinfo);
-                    }
-                }
-
-                if (directory.GetFiles("*.png") != null) {
-                    foreach (FileInfo fileinfo in directory.GetFiles("*.png")) {
-                        filesArray.Add(fileinfo);
-                    }
-                }
+                }       
 
                 //找到当前文件的序号
                 int i = 0;
@@ -144,7 +102,6 @@ namespace WallPaper {
 
         }
 
-        /*建议：去除旋转功能*/
         private void showPicture(string fileName) {
             bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
@@ -176,7 +133,8 @@ namespace WallPaper {
                 double scale = bitmapImage.Height / bitmapImage.Width;
                 if (scale >= 1) //以竖直方向为标准
                 {
-                    this.img.Height = scrollViewer.ViewportHeight - 5;
+                    this.img.Height = 500;
+                    //this.img.Height = scrollViewer.ViewportHeight - 5;
                     this.img.Width = this.img.Height / scale;
                 }
                 else {
@@ -194,7 +152,6 @@ namespace WallPaper {
         }
 
         private void CloseFileClick(object sender, RoutedEventArgs e) {
-            //imgsource = null;
             bitmapImage = null;
             this.img.Width = this.scrollViewer.Width;
             this.img.Height = this.scrollViewer.Height;
@@ -223,58 +180,6 @@ namespace WallPaper {
             showPicture(fileName);
         }
 
-        private void OnRotate90Click(object sender, RoutedEventArgs e) {
-            rotateAngle += 90;
-            rotateAngle = rotateAngle % 360;
-            doRotate();
-        }
-
-        private void doRotate() {
-            //TransformedBitmap tb = new TransformedBitmap();
-            //tb.BeginInit();
-            //tb.Source = bitmapImage;
-            //RotateTransform transform;
-            //if (rotateAngle==0)
-            //{
-            //    transform = new RotateTransform(0);
-            //    tb.Transform = transform;
-            //}
-            //else if (rotateAngle == 90)
-            //{
-            //    transform = new RotateTransform(90);
-            //    tb.Transform = transform;
-            //}
-            //else if (rotateAngle == 180)
-            //{
-            //    transform = new RotateTransform(180);
-            //    tb.Transform = transform;
-            //}
-            //else if (rotateAngle == 270)
-            //{
-            //    transform = new RotateTransform(270);
-            //    tb.Transform = transform;
-            //}
-            //tb.EndInit();
-            //this.img.Height = tb.Height;
-            //this.img.Width = tb.Width;
-            //this.img.Source = tb;
-            showPicture(fileName);
-        }
-
-
-        private void btnRotatecounterclockwise90_Click(object sender, RoutedEventArgs e) {
-            rotateAngle -= 90;
-            rotateAngle += 360;
-            rotateAngle = rotateAngle % 360;
-            doRotate();
-        }
-
-        private void btnRotateclockwise90_Click(object sender, RoutedEventArgs e) {
-            rotateAngle += 90;
-            rotateAngle = rotateAngle % 360;
-            doRotate();
-        }
-
         private void OnQuitClick(object sender, RoutedEventArgs e) {
             Close();
         }
@@ -282,12 +187,28 @@ namespace WallPaper {
         private void OnAboutMe(object sender, RoutedEventArgs e) {
             //AboutMe aboutDialog = new AboutMe();
             //aboutDialog.ShowDialog();
-
         }
 
         private void btnChangeWallPaper_Click(object sender, RoutedEventArgs e) {
             cwp = new ChangeWallPaper();
             cwp.Change(fileName);
+        }
+
+        private void Window_Closed(object sender, EventArgs e) {
+            //跳转
+            SelectionBar selection = new SelectionBar();
+            this.Close();
+            selection.Show();
+        }
+
+        private void SaveAs_Click(object sender, RoutedEventArgs e) {
+            if (img.Source != null) {
+                SaveAs sa = new SaveAs();
+                sa.PictureSaveAs(fileName);
+            }
+            else {
+                //显示未选中图片
+            }
         }
     }
 }
