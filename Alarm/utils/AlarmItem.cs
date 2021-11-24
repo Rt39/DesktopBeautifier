@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -63,6 +63,7 @@ namespace Alarm
             XmlSerializer formatter = new XmlSerializer(typeof(ObservableCollection<AlarmItem>));
             TextReader tr = new StreamReader(fileName);
             alarmItems = (ObservableCollection<AlarmItem>)formatter.Deserialize(tr);
+            if (!File.Exists(fileName)) File.Create(fileName);
             tr.Close();
 
             return alarmItems;
