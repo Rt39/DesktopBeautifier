@@ -13,6 +13,14 @@ namespace Mascot
     {
         public string NodeName;
         public List<int> ChildMenu;
+        public static void Init(ref List<MenuNode> list)
+        {
+            MenuNode node = new MenuNode();
+            node.NodeName = "Start";
+            node.ChildMenu = new List<int>();
+            list.Add(node);
+            MenuNode.Insert("设置", "Start", ref list);
+        }
         public bool HasChild()
         {
             return ChildMenu.Count != 0;

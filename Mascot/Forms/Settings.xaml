@@ -8,9 +8,9 @@
         Title="Settings" Height="450" Width="554.176">
     <Grid>
         <Button Content="确认" HorizontalAlignment="Left" Margin="232,366,0,0" VerticalAlignment="Top" Width="82" Height="31" Click="Button_Click"/>
-        <CheckBox x:Name="CheckBox1" Content="功能1" HorizontalAlignment="Left" Margin="118,107,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="CheckBox2" Content="功能2" HorizontalAlignment="Left" Margin="118,170,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="CheckBox3" Content="功能3" HorizontalAlignment="Left" Margin="118,241,0,0" VerticalAlignment="Top"/>
-
+        <CheckBox x:Name="CheckBox1" Content="最近使用" HorizontalAlignment="Left" Margin="118,70,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBox2" Content="壁纸" HorizontalAlignment="Left" Margin="118,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.708,-1.566"/>
+        <CheckBox x:Name="CheckBox3" Content="提醒" HorizontalAlignment="Left" Margin="118,196,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBox4" Content="最近文件" HorizontalAlignment="Left" Margin="118,255,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

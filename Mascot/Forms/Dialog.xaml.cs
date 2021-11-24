@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -37,7 +38,14 @@ namespace Mascot
             string query = QueryBox.Text;
             if (e.Key == Key.Enter && !string.IsNullOrEmpty(query))
             {
+                int r= UtilClass.JudgeUtil.isRelative(query);
+                if(r==-1)
                 await BaiduUnit.unit_utterance(query);
+                else
+                {
+                    if(r==1) Utils.Process_Click(new object(), new EventArgs());
+                    else if(r==4) Utils.RecentFile_Click(new object(), new EventArgs());
+                }
                 QueryBox.Text = "";
                 QueryBox.Visibility = Visibility.Hidden;
             }
