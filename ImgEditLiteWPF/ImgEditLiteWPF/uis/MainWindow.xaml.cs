@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -41,7 +41,7 @@ namespace ImgEditLiteWPF
         {
             InitializeComponent();
 
-            //读入测试图片
+            //读入测试图片           
             fName = @".\img\classroom.jpg";
             //将图片保存和显示
             img = (Bitmap)System.Drawing.Image.FromFile(fName);

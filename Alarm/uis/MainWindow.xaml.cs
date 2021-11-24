@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -36,7 +37,9 @@ namespace Alarm
 
         SoundPlayer sound = new SoundPlayer();                       //播放音乐
 
-        string xmlFile = @"data.xml";                                //XML文件路径
+        private string _folder;
+        private string xmlFile;                                //XML文件路径
+        
 
         AlarmItem alarmItem = new AlarmItem();                       //用于添加和修改
 
@@ -54,6 +57,11 @@ namespace Alarm
             //设置定时器
             SetTickTimer();
             SetAlarmTimer();
+
+            _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, @"clockfolder");
+            xmlFile = System.IO.Path.Combine(_folder, @"clockData.xml");
+            if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
+
         }
 
         private void SetTickTimer()
