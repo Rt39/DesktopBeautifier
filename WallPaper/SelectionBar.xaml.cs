@@ -25,18 +25,10 @@ namespace WallPaper {
         NewWPC newWPC; 
         public SelectionBar() {
             InitializeComponent();
-            newWPC = new NewWPC();
-            newWPC.Judge(1);
-            if (newWPC.Picture_Url.Count == 0) {
-                lbl_recommend.Content = "暂无新壁纸推送";
-            }
-            else {
-                lbl_recommend.Content = $"{newWPC.Picture_Url.Count}张新壁纸待查看";
-            }
             ShowTools(0);
         }
 
-        private void btn_search_Click(object sender, RoutedEventArgs e) {
+        private async void btn_search_Click(object sender, RoutedEventArgs e) {
             KeyWord = rb_Landscape.IsChecked == true ? "Landscape" : null;
             KeyWord = rb_Anime.IsChecked == true ? "Anime" : KeyWord;
             KeyWord = rb_Pets.IsChecked == true ? "Pets" : KeyWord;
@@ -56,7 +48,7 @@ namespace WallPaper {
                     try {
                         WallPaperClawer wallPaperClawer = new WallPaperClawer();
                         wallPaperClawer.ChooseWeb(KeyWord);
-                        wallPaperClawer.ClawerWeb(RandomNum);
+                        await wallPaperClawer.ClawerWeb(RandomNum);
 
                         MainWindow Mn = new MainWindow(RandomNum);
                         this.Hide();
@@ -89,16 +81,32 @@ namespace WallPaper {
         private void btn_interest_Click(object sender, RoutedEventArgs e) {
             ShowTools(0);
         }
+        private async void GetNewPaper() {
+            await Task.Run(() => {
+                newWPC = new NewWPC();
+                newWPC.Judge1(1);
+                if (newWPC.Picture_Url.Count == 0) {
+                    this.Dispatcher.Invoke(new Action(() => lbl_recommend.Content = "暂无新壁纸推送"));
+                }
+                else {
+                    this.Dispatcher.Invoke(new Action(() => lbl_recommend.Content = $"{newWPC.Picture_Url.Count}张新壁纸待查看"));
+                }
 
+                ShowTools(1);
+                this.Dispatcher.Invoke(new Action(() => btn_examine.Visibility = (newWPC.Picture_Url.Count != 0) ? Visibility.Visible : Visibility.Hidden));
+            });
+        }
         private void btn_recommend_Click(object sender, RoutedEventArgs e) {
-            ShowTools(1);
+            GetNewPaper();
         }
 
         private void ShowTools(int i) {
-            SP_interest.Visibility = i == 0 ? Visibility.Visible : Visibility.Hidden;
-            btn_search.Visibility = i == 0 ? Visibility.Visible : Visibility.Hidden;
-            lbl_recommend.Visibility = i == 1 ? Visibility.Visible : Visibility.Hidden;
-            btn_examine.Visibility = (newWPC.Picture_Url.Count > 0 && i == 1) ? Visibility.Visible : Visibility.Hidden;
+            this.Dispatcher.Invoke(new Action(() => {
+                SP_interest.Visibility = i == 0 ? Visibility.Visible : Visibility.Hidden;
+                btn_search.Visibility = i == 0 ? Visibility.Visible : Visibility.Hidden;
+                lbl_recommend.Visibility = i == 1 ? Visibility.Visible : Visibility.Hidden;
+                btn_examine.Visibility = (i == 1) ? Visibility.Visible : Visibility.Hidden;
+            }));
         }
 
         private void btn_examine_Click(object sender, RoutedEventArgs e) {

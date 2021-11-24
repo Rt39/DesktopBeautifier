@@ -10,25 +10,46 @@ using System.Threading.Tasks;
 using Mascot;
 
 namespace WallPaper.Clawer {
-    class NewWPC {
+        public class NewWPC {
         public List<string> data = new List<string>();
         public List<string> Picture_Url = new List<string>();
         public string RandomNum;
         public string Txt_Path;
-        public void Judge(int instruction) {
+        public Notification notification = new Notification();
+        public async void Judge(int instruction) {
+            if (IsConnectInternet()) {
+                await Excute_async(instruction);
+            }
+        }
+        public void Judge1(int instruction) {
             if (IsConnectInternet()) {
                 Excute(instruction);
             }
-            else {
-                //网络未连接，不推送
-            }
+        }
+        public async Task<bool> Excute_async(int instruct) {
+            //完善文件夹分类
+            return await Task.Run(() => {
+                Excute(instruct);
+                return true;
+            });
+            
         }
         public void Excute(int instruct) {
             //完善文件夹分类
             DateTime now = DateTime.Now;
             RandomNum = "NewWallPaper" + now.Hour.ToString() + now.Minute.ToString() + now.Second.ToString();
-            Txt_Path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"PicId.txt";
-            
+
+            string StoragePath = Path.Combine(Utils.Definitions.SettingFolder, "WallPaper");
+            Txt_Path = StoragePath + "\\" + @"PicId.txt";
+            if (!Directory.Exists(StoragePath)) {
+                //创建目录
+                Directory.CreateDirectory(StoragePath);
+            }
+            if (!File.Exists(Txt_Path)) {
+                string anystring = "\n" + "anystring";
+                File.WriteAllText(Txt_Path, anystring);
+            }
+
             //读取，将txt中的内容读取到列表data中
             StreamReader sr = new StreamReader(Txt_Path);
             while (sr.ReadLine() != null) {
@@ -40,10 +61,10 @@ namespace WallPaper.Clawer {
             GetData("https://wall.alphacoders.com/popular.php", data[0], instruct);
             SaveASWebImg sa = new SaveASWebImg();
             for (int i = 0; i < Picture_Url.Count; i++) {
-                sa.Download(Picture_Url[i],RandomNum);
+                sa.Download(Picture_Url[i], RandomNum);
             }
-        }
 
+        }
         public void GetData(String address, string picture_list, int inst) {
             WebClient wc = new WebClient();
             //地址由调用时传入
@@ -69,11 +90,11 @@ namespace WallPaper.Clawer {
             //判断是否有更新
             if (Picture_Url.Count > 0) {
                 //查看后更新
-                if(inst == 1) {
+                if (inst == 1) {
                     File.WriteAllText(Txt_Path, str);
                 }
                 else {
-                    Notification.OnNoteEvent($"{Picture_Url.Count}张新壁纸待查看",new EventArgs());
+                    Notification.OnNoteEvent($"{Picture_Url.Count}张新壁纸待查看", new EventArgs());
                 }
             }
         }

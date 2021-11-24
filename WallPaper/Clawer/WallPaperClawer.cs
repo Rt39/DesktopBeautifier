@@ -5,37 +5,38 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace WallPaper.Clawer
 {
     class WallPaperClawer
     {
         public string Website { get; set; }
-        #region download
         public void ChooseWeb(string category)
         {
             Website = $"https://wall.alphacoders.com/search.php?search={category}"; //搜索壁纸
         }
-        public void ClawerWeb(string random)
+        public async Task<bool> ClawerWeb(string random)
         {
-            string website = Website;
-            var page = 1;//抓取的页数
-            //抓取网页资源
-            for (int i = 1; i <= page; i++)
-            {
-                //地址
-                string str = GetHtmlStr(website, "UTF8");
-                //匹配图片的正则表达式,表达式还应加入png格式，[jpg|png]错误-->[jpg|png]$
-                string regstr = "https://images[0-9]{0,1}.alphacoders.com/[0-9]{3}/thumbbig-[0-9]{0,}.jpg";
-                SaveASWebImg saveAS = new SaveASWebImg();
-                foreach (Match match in Regex.Matches(str, regstr))
-                //使用正则表达式解析网页文本，获得图片地址
-                {
-                    //下载图片
-                    saveAS.Download(match.Value,random);
+            return await Task.Run(() => {
+                string website = Website;
+                var page = 1;//抓取的页数
+                             //抓取网页资源
+                for (int i = 1; i <= page; i++) {
+                    //地址
+                    string str = GetHtmlStr(website, "UTF8");
+                    //匹配图片的正则表达式,表达式还应加入png格式，[jpg|png]错误-->[jpg|png]$
+                    string regstr = "https://images[0-9]{0,1}.alphacoders.com/[0-9]{3}/thumbbig-[0-9]{0,}.jpg";
+                    SaveASWebImg saveAS = new SaveASWebImg();
+                    foreach (Match match in Regex.Matches(str, regstr))
+                    //使用正则表达式解析网页文本，获得图片地址
+                    {
+                        //下载图片
+                        saveAS.Download(match.Value, random);
+                    }
                 }
-                #endregion download
-            }
+                return true;
+            });
         }
 
         public void TranslateCategory(string category)

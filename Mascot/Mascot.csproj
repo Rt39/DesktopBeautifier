@@ -59,7 +59,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -111,7 +111,6 @@
     <Compile Include="Forms\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UtilClass\Notification.cs" />
     <Compile Include="UtilClass\PutInTray.cs" />
     <Compile Include="API\Win32.cs" />
     <Compile Include="UtilClass\Utils.cs" />
@@ -262,6 +261,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Forms\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{15e23515-5223-42e2-840d-f9a67f4739ea}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WallPaper\WallPaper.csproj">
+      <Project>{8d751aff-2edb-43db-9a50-854eb56b21fc}</Project>
+      <Name>WallPaper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

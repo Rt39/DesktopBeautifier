@@ -18,10 +18,12 @@ namespace Mascot {
         Notification Note = new Notification();
         BaiduUnit BaiduUnit = new BaiduUnit();//百度机器人API
         PutInTray Tray;   //托盘
-        private Timer timer = new Timer();
+        private Timer timer = new Timer();//播放图片
+        private Timer dialogtimer = new Timer();
         private DateTime sTime = DateTime.Now;
         private uint askTimes = 0; //询问次数
-        private int n = 0;
+        private int n = 0;//图片次序
+        private int dialogn = 0;
         private Dialog d;
         private DesktopFileWatcher FileWatcher = new DesktopFileWatcher();//桌面文件监视
         private List<string> tips = new List<string>();
@@ -30,21 +32,24 @@ namespace Mascot {
             InitializeComponent();
         }
         private void Main_Load(object sender, RoutedEventArgs e) {
-            var desktopWorkingArea = Screen.PrimaryScreen.WorkingArea;
-            //this.Left = desktopWorkingArea.Right - this.Width+350;
-            //this.Top = desktopWorkingArea.Bottom - this.Height+300;
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.WindowStartupLocation = WindowStartupLocation.Manual;
+            this.Left = 1100;
+            this.Top = 700;
             Note.MsgEvent += new EventHandler(Notification);
             BaiduUnit.MsgEvent += new EventHandler(Notification);
             FileWatcher.NewFile += new EventHandler<FileSystemEventArgs>(FileWatcher_NewFile);
-            GetTips();
             timer.Interval = 300;
             timer.Tick += new EventHandler(timer_Tick);
+            dialogtimer.Interval = 300;
+            dialogtimer.Tick += new EventHandler(dialogtimer_Tick);
+            //设置序列化存储路径
             if (!Directory.Exists(Definitions.SettingFolder))
                 Directory.CreateDirectory(Definitions.SettingFolder);
             Tray = new PutInTray(this);//托盘
             Tray.Init();
+            GetTips();
             timer.Start();
+            dialogtimer.Start();
         }
         /// <summary>
         /// 监听得到新文件
@@ -85,7 +90,10 @@ namespace Mascot {
             this.Width = bitmap.Width;
             this.Height = bitmap.Height;
             if (n % 20 == 0 || n == 1) timer.Stop();
-            if (n % 15 == 0 && d != null) { d.Close(); d = null; }
+        }
+        private void dialogtimer_Tick(object sender, EventArgs e) {
+            dialogn += 1;
+            if (dialogn % 15 == 0 && d != null) { d.Close(); d = null; }
         }
 
         private void MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e) {
@@ -98,17 +106,20 @@ namespace Mascot {
 
         private void MouseLeftButtonUp_1(object sender, MouseButtonEventArgs e) {
             timer.Start();
+            dialogtimer.Start();
             if (d == null) {
                 d = new Dialog(this.Left, this.Top, tips[r.Next(tips.Count)]);
                 d.Show();
             }
         }
         private void MouseRightButtonDown_1(object sender, MouseButtonEventArgs e) {
-            timer.Stop();
+            //timer.Stop();
             if (d == null) {
                 d = new Dialog(this.Left, this.Top, "");
                 d.Show();
             }
+            dialogtimer.Stop();
+            dialogn = 0;
             d.QueryBox.Visibility = Visibility.Visible;
             askTimes++;
             string s = string.Empty;

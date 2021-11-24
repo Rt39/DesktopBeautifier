@@ -10,7 +10,11 @@
         <Button Content="确认" HorizontalAlignment="Left" Margin="232,366,0,0" VerticalAlignment="Top" Width="82" Height="31" Click="Button_Click"/>
         <CheckBox x:Name="CheckBox1" Content="最近使用" HorizontalAlignment="Left" Margin="118,70,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="CheckBox2" Content="壁纸" HorizontalAlignment="Left" Margin="118,131,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.708,-1.566"/>
-        <CheckBox x:Name="CheckBox3" Content="提醒" HorizontalAlignment="Left" Margin="118,196,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBox3" Content="闹钟" HorizontalAlignment="Left" Margin="118,196,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="CheckBox4" Content="最近文件" HorizontalAlignment="Left" Margin="118,255,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBox5" Content="笔记" HorizontalAlignment="Left" Margin="258,70,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBox6" Content="备忘录" HorizontalAlignment="Left" Margin="258,131,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBox7" Content="翻译器" HorizontalAlignment="Left" Margin="258,196,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="CheckBox8" Content="图片编辑" HorizontalAlignment="Left" Margin="258,255,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

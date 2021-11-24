@@ -122,10 +122,13 @@
     <Resource Include="blue.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Mascot\Mascot.csproj">
-      <Project>{ae7ce367-0180-4e24-8e6e-77a0868bcc3f}</Project>
-      <Name>Mascot</Name>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{15e23515-5223-42e2-840d-f9a67f4739ea}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

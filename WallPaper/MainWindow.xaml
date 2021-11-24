@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WallPaper.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="MainWindow" Height="682" Width="806" Closed="Window_Closed">
+    Title="WallPaper" Height="682" Width="806" Closed="Window_Closed" Icon="icon.ico">
 
     <Window.Resources>
         <ResourceDictionary>

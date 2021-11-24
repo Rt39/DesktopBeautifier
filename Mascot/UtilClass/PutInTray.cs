@@ -137,6 +137,7 @@ namespace Mascot
                 case "设置":item.Click += new EventHandler(set_Click);break;
                 case "最近使用":item.Click += new EventHandler(Utils.Process_Click);break;
                 case "最近文件":item.Click += new EventHandler(Utils.RecentFile_Click);break;
+                case "壁纸":item.Click += new EventHandler(Utils.Wallpaper_Clicked);break;
                 default: break;
             }
         }

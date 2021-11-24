@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WallPaper;
 using System.Windows;
 
 namespace Mascot
@@ -36,6 +32,15 @@ namespace Mascot
             fileForm.Top = 350;
             fileForm.Left = 1100;
             fileForm.ShowDialog();
+        }
+        /// <summary>
+        /// 壁纸功能
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void Wallpaper_Clicked(object sender, EventArgs e) {
+            SelectionBar selectionBar = new SelectionBar();
+            selectionBar.Show();
         }
     }
 }
