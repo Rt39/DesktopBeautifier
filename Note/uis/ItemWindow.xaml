@@ -1,0 +1,17 @@
+﻿<Window x:Class="Note.ItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Note"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="ItemWindow" Height="525" Width="476" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TextBox x:Name="tbxTitle" materialDesign:HintAssist.Hint="Enter Note Title" HorizontalAlignment="Left" Height="42" Margin="48,52,0,0" VerticalAlignment="Top" Width="222" FontSize="24"/>
+        <TextBox x:Name="tbxContent" materialDesign:HintAssist.Hint="Enter Note Content" HorizontalAlignment="Left" Height="293" Margin="48,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="368" FontSize="18" AcceptsReturn="True" AcceptsTab="True"/>
+        <Button x:Name="btnCan" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="81" Margin="48,428,0,0" Click="btnCan_Click"/>
+        <Button x:Name="btnCfm" Content="Confirm" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Margin="295,428,0,0" Click="btnCfm_Click"/>
+
+    </Grid>
+</Window>
