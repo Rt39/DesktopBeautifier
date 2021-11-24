@@ -1,0 +1,81 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--Menu控件模板-->
+    <ControlTemplate x:Key="mycontroltemplate" TargetType="{x:Type Menu}">
+        <Border Margin="2"
+                Background="Chocolate"
+                CornerRadius="3"
+                SnapsToDevicePixels="True">
+            <ItemsPresenter/>
+        </Border>
+    </ControlTemplate>
+
+    <!--MenuItem控件模板-->
+    <ControlTemplate x:Key="mymenuitemtemplate"
+                   TargetType="MenuItem">
+        <Border Name="Border">
+            <Grid>
+                <ContentPresenter
+          Margin="10"
+          ContentSource="Header"
+          RecognizesAccessKey="True"/>
+                <Popup
+                    AllowsTransparency="True"
+          Name="Popup"
+          Placement="Bottom"
+          IsOpen="{TemplateBinding IsSubmenuOpen}"
+          Focusable="False"
+          PopupAnimation="Slide">
+                    <Border
+            CornerRadius="30"
+            Name="SubmenuBorder"
+            SnapsToDevicePixels="True">
+                        <StackPanel
+              IsItemsHost="True"
+              KeyboardNavigation.DirectionalNavigation="Cycle" />
+                        <Border.Background>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <GeometryDrawing Brush="YellowGreen">
+                                        <GeometryDrawing.Geometry>
+                                            <CombinedGeometry GeometryCombineMode="Exclude">
+                                                <CombinedGeometry.Geometry1>
+                                                    <EllipseGeometry RadiusX="20" RadiusY="20"/>
+                                                </CombinedGeometry.Geometry1>
+                                                <CombinedGeometry.Geometry2>
+                                                    <EllipseGeometry RadiusX="10" RadiusY="10"/>
+                                                </CombinedGeometry.Geometry2>
+                                            </CombinedGeometry>
+                                        </GeometryDrawing.Geometry>
+                                    </GeometryDrawing>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Border.Background>
+                    </Border>
+                </Popup>
+            </Grid>
+        </Border>
+        <!--可有可无________________________________________________________________________________-->
+        <!--<ControlTemplate.Triggers>
+            <Trigger Property="IsSuspendingPopupAnimation" Value="true">
+                <Setter TargetName="Popup" Property="PopupAnimation" Value="None"/>
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="true">
+                <Setter TargetName="Border" Property="Background"
+                Value="Transparent"/>
+                <Setter TargetName="Border" Property="BorderBrush"
+                Value="Transparent"/>
+            </Trigger>
+            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="True">
+                <Setter TargetName="SubmenuBorder" Property="CornerRadius" Value="0,0,4,4"/>
+                <Setter TargetName="SubmenuBorder" Property="Padding" Value="0,0,0,3"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+        </ControlTemplate.Triggers>-->
+        <!--可有可无________________________________________________________________________________-->
+    </ControlTemplate>
+
+
+</ResourceDictionary>
