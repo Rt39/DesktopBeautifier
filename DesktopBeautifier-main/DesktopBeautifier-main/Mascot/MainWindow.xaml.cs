@@ -60,8 +60,8 @@ namespace Mascot {
             if (Utils.flag) return;
             Utils.flag = true;
             this.Dispatcher.Invoke(new Action(() => {
-                Forms.File fileForm = new Forms.File(ref FileWatcher, e.Name);
                 Notification("新文件被发现了哦~", new EventArgs());
+                Forms.File fileForm = new Forms.File(ref FileWatcher, e.Name);
                 fileForm.WindowStartupLocation = WindowStartupLocation.Manual;
                 fileForm.Top = 350;
                 fileForm.Left = 1100;
@@ -108,14 +108,14 @@ namespace Mascot {
             timer.Start();
             dialogtimer.Start();
             if (d == null) {
-                d = new Dialog(this.Left, this.Top, tips[r.Next(tips.Count)]);
+                d = new Dialog(this.Left-310, this.Top-290, tips[r.Next(tips.Count)]);
                 d.Show();
             }
         }
         private void MouseRightButtonDown_1(object sender, MouseButtonEventArgs e) {
             //timer.Stop();
             if (d == null) {
-                d = new Dialog(this.Left, this.Top, "");
+                d = new Dialog(this.Left-310, this.Top-290, "");
                 d.Show();
             }
             dialogtimer.Stop();
@@ -130,7 +130,8 @@ namespace Mascot {
             string s = sender as string;
             if (d == null) {
                 this.Dispatcher.Invoke(new Action(() => {
-                    d = new Dialog(this.Left, this.Top, "");
+                    n = 0;
+                    d = new Dialog(this.Left-310, this.Top-290, "");
                     d.Show();
                 }));
             }

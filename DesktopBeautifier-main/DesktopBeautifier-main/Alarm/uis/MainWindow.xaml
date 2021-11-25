@@ -5,6 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
        Title="Alarm" Height="718" Width="466" AutomationProperties.Name="MainWindow" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        
+    </Window.Resources>
     <Grid>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="102,119,102,-4">
@@ -32,7 +35,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Time" Binding="{Binding Time, Mode=TwoWay, StringFormat='yyyy/MM/dd HH:mm:ss'}" Width="170"/>
                 <DataGridTextColumn Header="Message" Binding="{Binding Msg, Mode=TwoWay, StringFormat ='0:Yes;;;No'}" Width="120"/>
-                <DataGridCheckBoxColumn Header="      State" Binding="{Binding State, Mode=TwoWay}" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}" Width="100"/>
+                <DataGridCheckBoxColumn Header="      State" Binding="{Binding State, Mode=TwoWay}" ElementStyle="{DynamicResource MaterialDesignDataGridCheckBoxColumnStyle}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
 

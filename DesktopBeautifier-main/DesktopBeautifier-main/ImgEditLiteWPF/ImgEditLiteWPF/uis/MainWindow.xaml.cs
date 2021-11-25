@@ -42,6 +42,7 @@ namespace ImgEditLiteWPF
             InitializeComponent();
 
             //读入测试图片           
+            Console.WriteLine();
             fName = @".\img\classroom.jpg";
             //将图片保存和显示
             img = (Bitmap)System.Drawing.Image.FromFile(fName);

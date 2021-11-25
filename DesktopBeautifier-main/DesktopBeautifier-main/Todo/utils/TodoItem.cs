@@ -88,6 +88,9 @@ namespace Todo
 
         public static List<TodoItem> OpenAsJson(string fileName)
         {
+            if(!File.Exists(fileName)) {
+                SaveAsJson(new List<TodoItem>(), fileName);
+            }
             string line;
             string json = String.Empty;
 

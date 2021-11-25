@@ -49,7 +49,7 @@ namespace Mascot
         /// <param name="e"></param>
         public static void Alarm_Clicked(object sender, EventArgs e) {
             Alarm.MainWindow mainWindow = new Alarm.MainWindow();
-            mainWindow.Show();
+            mainWindow.ShowDialog();
         }
         /// <summary>
         /// 笔记

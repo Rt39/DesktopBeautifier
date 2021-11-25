@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Note
 {
@@ -22,7 +22,7 @@ namespace Note
     {
         List<NoteItem> noteItems;                                       //日记
 
-        string jsonFile = @"data.json";                                 //Json文件路径
+        string jsonFile = Path.Combine(Utils.Definitions.SettingFolder, @"data.json");                                 //Json文件路径
 
         NoteItem noteItem = new NoteItem();                             //用于添加和修改
         public MainWindow()

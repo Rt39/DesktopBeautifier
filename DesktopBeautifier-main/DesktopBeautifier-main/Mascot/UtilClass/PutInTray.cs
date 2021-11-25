@@ -9,6 +9,9 @@ using System.Windows.Threading;
 
 namespace Mascot
 {
+    /// <summary>
+    /// 托盘加载
+    /// </summary>
     class PutInTray
     {
         MainWindow mainwindow;

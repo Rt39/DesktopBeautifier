@@ -44,6 +44,9 @@ namespace Note
 
         public static List<NoteItem> OpenAsJson(string fileName)
         {
+            if(!File.Exists(fileName)) {
+                SaveAsJson(new List<NoteItem>(), fileName);
+            }
             string line;
             string json = String.Empty;
 

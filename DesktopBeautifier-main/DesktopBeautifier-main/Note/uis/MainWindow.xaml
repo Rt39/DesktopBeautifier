@@ -10,7 +10,7 @@
     <Grid>
         <DataGrid x:Name="dgdItem" HorizontalAlignment="Left" Height="357" Margin="19,26,0,0" VerticalAlignment="Top" Width="420" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dgdItem_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="120" Header="Title" Binding="{Binding Title, Mode=TwoWay}" ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                <DataGridTextColumn Width="120" Header="Title" Binding="{Binding Title, Mode=TwoWay}" ElementStyle="{DynamicResource MaterialDesignDataGridTextColumnStyle}">
                 </DataGridTextColumn>
                 <DataGridTextColumn Width="300" Header="Content" Binding="{Binding Content, Mode=TwoWay}">
                 </DataGridTextColumn>

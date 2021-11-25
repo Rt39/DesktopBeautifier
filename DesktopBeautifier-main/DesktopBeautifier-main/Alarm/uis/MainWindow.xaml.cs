@@ -22,7 +22,7 @@ namespace Alarm {
         System.Timers.Timer tickTimer;                               //时钟走动的定时器
         System.Timers.Timer alarmTimer;                              //闹钟判断的定时器
 
-        ObservableCollection<AlarmItem> alarmItems;                  //闹钟
+        ObservableCollection<AlarmItem> alarmItems=new ObservableCollection<AlarmItem>();  //闹钟
 
         SoundPlayer sound = new SoundPlayer();                       //播放音乐
 
@@ -35,10 +35,16 @@ namespace Alarm {
         public MainWindow()
         {
             InitializeComponent();
-
             //设置回调
             this.callBackTick = new DoSomeCallBack(TickTimerElapsed);
             this.callBackAlarm = new DoSomeCallBack(AlarmTimerElapsed);
+
+            _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, @"clockfolder");
+            xmlFile = System.IO.Path.Combine(_folder, @"clockData.xml");
+            if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
+            if (!File.Exists(xmlFile)) {
+                AlarmItem.SaveAsXML(this.alarmItems, this.xmlFile);
+            }
 
             //更新并绑定
             UpdateBinding();
@@ -46,11 +52,6 @@ namespace Alarm {
             //设置定时器
             SetTickTimer();
             SetAlarmTimer();
-
-            _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, @"clockfolder");
-            xmlFile = System.IO.Path.Combine(_folder, @"clockData.xml");
-            if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
-
         }
 
         private void SetTickTimer()

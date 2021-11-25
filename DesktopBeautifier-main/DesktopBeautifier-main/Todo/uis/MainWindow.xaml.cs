@@ -25,7 +25,7 @@ namespace Todo
 
         DateTime selDate = DateTime.Now.Date;                           //选中日历日期
 
-        string jsonFile = @"data.json";                                 //Json文件路径
+        string jsonFile =System.IO.Path.Combine(Utils.Definitions.SettingFolder, @"ToDo.json");                                 //Json文件路径
 
         TodoItem todoItem = new TodoItem();                             //用于添加和修改
 
