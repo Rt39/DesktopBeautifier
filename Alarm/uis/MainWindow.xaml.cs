@@ -17,12 +17,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Alarm {
+namespace Alarm
+{
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : Window {
-
+    public partial class MainWindow : Window
+    {
+        
         public delegate void DoSomeCallBack();                       //定义委托
 
         DoSomeCallBack callBackTick;                                 //声明Tick回调
@@ -36,13 +38,19 @@ namespace Alarm {
         SoundPlayer sound = new SoundPlayer();                       //播放音乐
 
         private string _folder;
-        private string xmlFile = "AlarmData.xml";                                //XML文件路径
-
+        private string xmlFile;                                //XML文件路径
+        //private static readonly string _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, "Todo");
+        //private static readonly string _dataPath = System.IO.Path.Combine(_folder, "data.json");
 
         AlarmItem alarmItem = new AlarmItem();                       //用于添加和修改
 
-        public MainWindow() {
+        public MainWindow()
+        {
             InitializeComponent();
+
+            _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, @"Alarm");
+            xmlFile = System.IO.Path.Combine(_folder, @"AlarmData.xml");
+            if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
 
             //设置回调
             this.callBackTick = new DoSomeCallBack(TickTimerElapsed);
@@ -55,47 +63,51 @@ namespace Alarm {
             SetTickTimer();
             SetAlarmTimer();
 
-            _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, @"clockfolder");
-            xmlFile = System.IO.Path.Combine(_folder, @"clockData.xml");
-            if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
 
         }
 
-        private void SetTickTimer() {
+        private void SetTickTimer()
+        {
             //设置时钟走动的定时器
             this.tickTimer = new System.Timers.Timer();
 
             //设置定时器
             this.tickTimer.Interval = 100;
             this.tickTimer.Elapsed += delegate {
-                if (!this.Dispatcher.CheckAccess()) {
+                if (!this.Dispatcher.CheckAccess())
+                {
                     this.Dispatcher.Invoke(callBackTick);
                 }
-                else {
+                else
+                {
                     TickTimerElapsed();
                 };
             };
             this.tickTimer.Start();
         }
 
-        private void SetAlarmTimer() {
+        private void SetAlarmTimer()
+        {
             //设置闹钟判断的定时器
             this.alarmTimer = new System.Timers.Timer();
 
             //设置定时器
             this.alarmTimer.Interval = 1000;
             this.alarmTimer.Elapsed += delegate {
-                if (!this.Dispatcher.CheckAccess()) {
+                if (!this.Dispatcher.CheckAccess())
+                {
                     this.Dispatcher.Invoke(callBackAlarm);
                 }
-                else {
+                else
+                {
                     AlarmTimerElapsed();
                 };
             };
             this.alarmTimer.Start();
         }
 
-        private void TickTimerElapsed() {
+        private void TickTimerElapsed()
+        {
             int hour = DateTime.Now.Hour;
 
             if (hour >= 3 && hour < 6)
@@ -120,10 +132,12 @@ namespace Alarm {
             lblSec.Content = DateTime.Now.Second.ToString("D2");
         }
 
-        private void AlarmTimerElapsed() {
-            TimeSpan timeSpan = new TimeSpan(999, 0, 0, 0, 0);
+        private void AlarmTimerElapsed()
+        {
+            TimeSpan timeSpan = new TimeSpan(999,0,0,0,0);
 
-            foreach (var item in alarmItems) {
+            foreach (var item in alarmItems)
+            {
                 TimeSpan ts = item.Time - DateTime.Now;
 
                 if (ts.TotalSeconds < 0 || item.State == false)
@@ -132,15 +146,19 @@ namespace Alarm {
                 if (ts < timeSpan)
                     timeSpan = ts;
 
-                if (ts.TotalSeconds < 1) {
-                    try {
-                        if (sound.Stream == null) {
+                if (ts.TotalSeconds < 1)
+                {
+                    try
+                    {
+                        if (sound.Stream == null)
+                        {
                             sound.Stream = Properties.Resources.MELANCHOLY;
                         }
                         sound.PlayLooping();
                         MessageBox.Show(item.Msg);
                     }
-                    catch {
+                    catch
+                    {
                         MessageBox.Show("Error");
                     }
 
@@ -158,19 +176,22 @@ namespace Alarm {
                 }
             }
 
-            if (timeSpan.Days == 999) {
+            if (timeSpan.Days == 999)
+            {
                 lblDay_.Content = "--";
                 lblHour_.Content = "--";
                 lblMin_.Content = "--";
             }
-            else {
+            else
+            {
                 lblDay_.Content = timeSpan.Days;
                 lblHour_.Content = timeSpan.Hours;
                 lblMin_.Content = timeSpan.Minutes;
             }
         }
 
-        private void UpdateBinding() {
+        private void UpdateBinding()
+        {
             //读取闹钟XML
             this.alarmItems = AlarmItem.OpenAsXML(this.xmlFile);
             //更新绑定
@@ -179,21 +200,25 @@ namespace Alarm {
         }
 
         //设置AlarmItem
-        public void SetAlarmItem(DateTime time, string msg, bool state) {
+        public void SetAlarmItem(DateTime time, string msg, bool state)
+        {
             this.alarmItem = new AlarmItem(time, msg, state);
         }
 
-        private void btnTest_Click(object sender, RoutedEventArgs e) {
+        private void btnTest_Click(object sender, RoutedEventArgs e)
+        {
             Console.WriteLine(alarmItems.Count);
         }
 
         //点击添加按钮
-        private void btnAdd_Click(object sender, RoutedEventArgs e) {
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
             ItemWindow itemWindow = new ItemWindow();
             itemWindow.Title = "Add";
             itemWindow.Owner = this;
 
-            if (itemWindow.ShowDialog() == true) {
+            if (itemWindow.ShowDialog() == true)
+            {
                 //添加Item到全局对象
                 this.alarmItems.Add(new AlarmItem(this.alarmItem));
 
@@ -205,10 +230,12 @@ namespace Alarm {
             }
         }
 
-        private void btnMdf_Click(object sender, RoutedEventArgs e) {
+        private void btnMdf_Click(object sender, RoutedEventArgs e)
+        {
             AlarmItem selItem = (AlarmItem)dgdItem.SelectedItem;
 
-            if (selItem == null) {
+            if (selItem == null)
+            {
                 MessageBox.Show("请选择一项！", "提示");
                 return;
             }
@@ -218,7 +245,8 @@ namespace Alarm {
             itemWindow.Owner = this;
             itemWindow.SetItemValue(selItem.Time, selItem.Msg, selItem.State);
 
-            if (itemWindow.ShowDialog() == true) {
+            if (itemWindow.ShowDialog() == true)
+            {
                 //移除原Item
                 this.alarmItems.Remove(selItem);
 
@@ -233,10 +261,12 @@ namespace Alarm {
             }
         }
 
-        private void btnDel_Click(object sender, RoutedEventArgs e) {
+        private void btnDel_Click(object sender, RoutedEventArgs e)
+        {
             AlarmItem selItem = (AlarmItem)dgdItem.SelectedItem;
 
-            if (selItem == null) {
+            if (selItem == null)
+            {
                 MessageBox.Show("请选择一项！", "提示");
                 return;
             }
@@ -251,20 +281,25 @@ namespace Alarm {
             UpdateBinding();
         }
 
-        private void dgdItem_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+        private void dgdItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
             Point aP = e.GetPosition(dgdItem);                  //返回鼠标指针相对于指定元素的位置
             IInputElement obj = dgdItem.InputHitTest(aP);       //返回坐标上的当前元素中的输入元素
             DependencyObject target = obj as DependencyObject;
-            while (target != null) {
-                if (target is DataGridRow) {
+            while (target != null)
+            {
+                if (target is DataGridRow)
+                {
                     btnMdf.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 }
                 target = VisualTreeHelper.GetParent(target);
             }
         }
 
-        private void Item_GotFocus(object sender, RoutedEventArgs e) {
-            if (dgdItem.CurrentCell.Column == dgdItem.Columns[2]) {
+        private void Item_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (dgdItem.CurrentCell.Column == dgdItem.Columns[2])
+            {
                 DataGridRow item = (DataGridRow)sender;
 
                 AlarmItem selItem = (AlarmItem)item.Item;
@@ -279,8 +314,10 @@ namespace Alarm {
             }
         }
 
-        private void dgdItem_MouseDown(object sender, MouseButtonEventArgs e) {
-            if (dgdItem.CurrentCell.Column == dgdItem.Columns[2]) {
+        private void dgdItem_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (dgdItem.CurrentCell.Column == dgdItem.Columns[2])
+            {
                 DataGridRow item = (DataGridRow)sender;
 
                 AlarmItem selItem = (AlarmItem)item.Item;

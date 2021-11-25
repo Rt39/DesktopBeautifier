@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,16 +22,20 @@ namespace Note
     public partial class MainWindow : Window
     {
         List<NoteItem> noteItems;                                       //日记
-
-        string jsonFile = @"data.json";                                 //Json文件路径
+        private static readonly string _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, "Note");
+        private static readonly string _dataPath = System.IO.Path.Combine(_folder, "NoteData.json"); //Json文件路径                           
 
         NoteItem noteItem = new NoteItem();                             //用于添加和修改
         public MainWindow()
         {
             InitializeComponent();
+            InitializeComponent();
+            if (!Directory.Exists(_folder)) {
+                Directory.CreateDirectory(_folder);
+            }
 
             //读取列表Json
-            this.noteItems = NoteItem.OpenAsJson(this.jsonFile);
+            this.noteItems = NoteItem.OpenAsJson(_dataPath);
 
             //更新绑定
             UpdateBinding();
@@ -63,7 +68,7 @@ namespace Note
                 this.noteItems.Add(new NoteItem(this.noteItem));
 
                 //保存到Json
-                NoteItem.SaveAsJson(this.noteItems, this.jsonFile);
+                NoteItem.SaveAsJson(this.noteItems, _dataPath);
 
                 //更新绑定
                 UpdateBinding();
@@ -95,7 +100,7 @@ namespace Note
                 this.noteItems.Add(new NoteItem(this.noteItem));
 
                 //保存到Json
-                NoteItem.SaveAsJson(this.noteItems, this.jsonFile);
+                NoteItem.SaveAsJson(this.noteItems, _dataPath);
 
                 //更新选中日期并绑定
                 UpdateBinding();
@@ -117,7 +122,7 @@ namespace Note
             this.noteItems.Remove(selItem);
 
             //保存到Json
-            NoteItem.SaveAsJson(this.noteItems, this.jsonFile);
+            NoteItem.SaveAsJson(this.noteItems, _dataPath);
 
             //更新选中日期并绑定
             UpdateBinding();

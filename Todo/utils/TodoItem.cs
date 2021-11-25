@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,12 +41,19 @@ namespace Todo
 
         public static List<TodoItem> SearchByDate(List<TodoItem> todoItems, DateTime dateTime)
         {
-            var todoItemsRlt =
-                from item in todoItems
-                where item.Date == dateTime
-                select item;
 
-            return todoItemsRlt.ToList();
+            if (todoItems != null) {
+                var todoItemsRlt =
+                    from item in todoItems
+                    where item.Date == dateTime
+                    select item;
+                return todoItemsRlt.ToList();
+            }
+            else {
+                todoItems = new List<TodoItem>();
+                return todoItems;
+            }
+
         }
 
         public static string getMemory(object o) // 获取引用类型的内存地址方法    

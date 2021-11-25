@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LitJson;
 
 namespace Todo
 {
@@ -25,16 +27,27 @@ namespace Todo
 
         DateTime selDate = DateTime.Now.Date;                           //选中日历日期
 
-        string jsonFile = @"data.json";                                 //Json文件路径
-
         TodoItem todoItem = new TodoItem();                             //用于添加和修改
+
+        private static readonly string _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, "Todo");
+        private static readonly string _dataPath = System.IO.Path.Combine(_folder, "TodoData.json");
 
         public MainWindow()
         {
             InitializeComponent();
-
+            if (!Directory.Exists(_folder)) {
+                Directory.CreateDirectory(_folder);
+            }
+            if(!File.Exists(_dataPath)) {
+                JsonData jsonData = new JsonData();
+                string json = jsonData.ToJson();                
+                StreamWriter sw = new StreamWriter(_dataPath);
+                sw.Write(json);
+                sw.Close();
+                sw.Dispose();
+            }
             //读取列表Json
-            this.todoItems = TodoItem.OpenAsJson(this.jsonFile);
+            this.todoItems = TodoItem.OpenAsJson(_dataPath);
 
             //更新绑定
             UpdateBinding();
@@ -80,7 +93,7 @@ namespace Todo
                 this.todoItems.Add(new TodoItem(this.todoItem));
 
                 //保存到Json
-                TodoItem.SaveAsJson(this.todoItems, this.jsonFile);
+                TodoItem.SaveAsJson(this.todoItems, _dataPath);
 
                 //更新绑定
                 UpdateBinding();
@@ -112,7 +125,7 @@ namespace Todo
                 this.todoItems.Add(new TodoItem(this.todoItem));
 
                 //保存到Json
-                TodoItem.SaveAsJson(this.todoItems, this.jsonFile);
+                TodoItem.SaveAsJson(this.todoItems,_dataPath);
 
                 //更新选中日期并绑定
                 UpdateBinding();
@@ -134,7 +147,7 @@ namespace Todo
             this.todoItems.Remove(selItem);
 
             //保存到Json
-            TodoItem.SaveAsJson(this.todoItems, this.jsonFile);
+            TodoItem.SaveAsJson(this.todoItems, _dataPath);
 
             //更新选中日期并绑定
             UpdateBinding();
