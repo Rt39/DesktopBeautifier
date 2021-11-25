@@ -49,7 +49,7 @@ namespace Alarm
             InitializeComponent();
 
             _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, @"Alarm");
-            xmlFile = System.IO.Path.Combine(_folder, @"data.xml");
+            xmlFile = System.IO.Path.Combine(_folder, @"AlarmData.xml");
             if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
 
             //设置回调

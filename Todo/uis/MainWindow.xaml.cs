@@ -30,7 +30,7 @@ namespace Todo
         TodoItem todoItem = new TodoItem();                             //用于添加和修改
 
         private static readonly string _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, "Todo");
-        private static readonly string _dataPath = System.IO.Path.Combine(_folder, "data.json");
+        private static readonly string _dataPath = System.IO.Path.Combine(_folder, "TodoData.json");
 
         public MainWindow()
         {

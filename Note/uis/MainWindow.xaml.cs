@@ -23,7 +23,7 @@ namespace Note
     {
         List<NoteItem> noteItems;                                       //日记
         private static readonly string _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, "Note");
-        private static readonly string _dataPath = System.IO.Path.Combine(_folder, "data.json"); //Json文件路径                           
+        private static readonly string _dataPath = System.IO.Path.Combine(_folder, "NoteData.json"); //Json文件路径                           
 
         NoteItem noteItem = new NoteItem();                             //用于添加和修改
         public MainWindow()
