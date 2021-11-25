@@ -260,6 +260,26 @@
     <Resource Include="Forms\icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Alarm\Alarm.csproj">
+      <Project>{a2f5bdfb-6257-4673-9119-f2a772cca2f4}</Project>
+      <Name>Alarm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImgEditLiteWPF\ImgEditLiteWPF\ImgEditLiteWPF.csproj">
+      <Project>{4e674567-809d-40ee-8251-cf53889ed9f1}</Project>
+      <Name>ImgEditLiteWPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Note\Note.csproj">
+      <Project>{02097b64-5204-4b67-b38d-a462b85a14e9}</Project>
+      <Name>Note</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Todo\Todo.csproj">
+      <Project>{ae98c340-5545-4ee8-a380-8f63b7fe4168}</Project>
+      <Name>Todo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TranslatorWPF\TranslatorWPF.csproj">
+      <Project>{b756a27e-7d60-4183-9b1c-adcaeef37314}</Project>
+      <Name>TranslatorWPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{15e23515-5223-42e2-840d-f9a67f4739ea}</Project>
       <Name>Utils</Name>

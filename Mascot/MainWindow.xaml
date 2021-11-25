@@ -9,11 +9,11 @@
         <WindowChrome GlassFrameThickness="-1" />
     </WindowChrome.WindowChrome>
     <Grid x:Name="Grid" Loaded="Main_Load" Visibility="Visible">
+        <Viewbox HorizontalAlignment="Left" Height="73" Margin="751,40,0,0" VerticalAlignment="Top" Width="271"/>
         <Image x:Name="backImage" Source="pack://application:,,,/Resources/frame/shime1.png" Cursor="None" OpacityMask="Black" Margin="-10,-10,9.8,10.2">
             <Image.BitmapEffect>
                 <OuterGlowBitmapEffect GlowColor="White" GlowSize="2" />
             </Image.BitmapEffect>
         </Image>
-        <Viewbox HorizontalAlignment="Left" Height="73" Margin="751,40,0,0" VerticalAlignment="Top" Width="271"/>
     </Grid>
 </Window>

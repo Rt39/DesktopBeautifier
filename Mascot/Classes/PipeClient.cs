@@ -33,12 +33,12 @@ namespace Mascot
                               System.Security.Principal.TokenImpersonationLevel.Impersonation);
                 Console.WriteLine("Connecting to server...\n");
                 pipeClient.Connect(100);
-                //Miao miao;
+                //最近使用进程哈希表
                 HashSet<ApplicationInfo> applicationInfos;
                 using (StreamReader reader = new StreamReader(pipeClient))
                 {
+                    //获取的json文件流，并反序列化
                     string s = reader.ReadToEnd();
-                    //Console.WriteLine(s);
                     applicationInfos = JsonConvert.DeserializeObject<HashSet<ApplicationInfo>>(s);
                 }
                 return applicationInfos;
