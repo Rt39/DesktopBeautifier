@@ -264,6 +264,10 @@
       <Project>{a2f5bdfb-6257-4673-9119-f2a772cca2f4}</Project>
       <Name>Alarm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ImgEditLiteWPF\ImgEditLiteWPF\ImgEditLiteWPF.csproj">
+      <Project>{4e674567-809d-40ee-8251-cf53889ed9f1}</Project>
+      <Name>ImgEditLiteWPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Note\Note.csproj">
       <Project>{02097b64-5204-4b67-b38d-a462b85a14e9}</Project>
       <Name>Note</Name>

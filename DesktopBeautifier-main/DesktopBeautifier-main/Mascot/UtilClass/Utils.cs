@@ -75,7 +75,7 @@ namespace Mascot
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public static void ImgEdit_Clicked(object sender, EventArgs e) {
-            Note.MainWindow mainWindow = new Note.MainWindow();
+            ImgEditLiteWPF.MainWindow mainWindow = new ImgEditLiteWPF.MainWindow();
             mainWindow.Show();
         }
         /// <summary>

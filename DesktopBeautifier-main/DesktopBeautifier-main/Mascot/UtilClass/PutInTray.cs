@@ -79,6 +79,7 @@ namespace Mascot
                 for(int i=0;i<cont;i++)
                 {
                     int id = list[idx].ChildMenu[i];
+                    //递归得到子菜单节点
                     items[i] = LoadNode(id);
                 }
                 return new MenuItem($"{list[idx].NodeName}", items);
@@ -86,6 +87,7 @@ namespace Mascot
             else
             {
                 MenuItem i= new MenuItem($"{list[idx].NodeName}");
+                //绑定处理事件
                 EventBinding(ref i);
                 return i;
             }
@@ -142,7 +144,7 @@ namespace Mascot
                 case "笔记": item.Click += new EventHandler(Utils.Note_Clicked); break;
                 case "备忘录": item.Click += new EventHandler(Utils.Todo_Clicked); break;
                 case "翻译器": item.Click += new EventHandler(Utils.Translate_Clicked); break;
-                case "图片编辑器": item.Click += new EventHandler(Utils.ImgEdit_Clicked); break;
+                case "图片编辑": item.Click += new EventHandler(Utils.ImgEdit_Clicked); break;
                 default: break;
             }
         }

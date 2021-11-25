@@ -19,7 +19,7 @@ namespace ProcessMonitor {
         private NamedPipeServerStream _pipeServer;  // 管道服务端
         private Thread _pipeListenThread; // 监听管道连接
         private System.Timers.Timer _processMonitorTimer;   // 进程监视计时器
-        private static readonly string _folder = Path.Combine(Utils.Definitions.SettingFolder, "ProcessMonitor");
+        private static readonly string _folder = Path.Combine(Definitions.SettingFolder, "ProcessMonitor");
         private static readonly string _logPath = Path.Combine(_folder, "monitor.log");
 
         // 管道安全策略，设置为非管理员程序也可以连接
@@ -44,10 +44,10 @@ namespace ProcessMonitor {
             if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
             WriteLog("服务启动");
 
-            // 启动管道
+            // 启动管道服务
             _pipeListenThread = new Thread(ServerThread);
             _pipeListenThread.Start();
-            // 启动进程监视器
+            // 启动进程监视器，定时检测本机进程资源
             _processMonitorTimer = new System.Timers.Timer(ApplicationInfo.CHECK_INTERVAL);
             _processMonitorTimer.Elapsed += CheckProcess;
             _processMonitorTimer.Start();
