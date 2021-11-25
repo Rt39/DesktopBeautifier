@@ -32,9 +32,7 @@ namespace Mascot {
             InitializeComponent();
         }
         private void Main_Load(object sender, RoutedEventArgs e) {
-            this.WindowStartupLocation = WindowStartupLocation.Manual;
-            this.Left = 1100;
-            this.Top = 700;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             Note.MsgEvent += new EventHandler(Notification);
             BaiduUnit.MsgEvent += new EventHandler(Notification);
             FileWatcher.NewFile += new EventHandler<FileSystemEventArgs>(FileWatcher_NewFile);
