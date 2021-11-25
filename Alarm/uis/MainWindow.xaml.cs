@@ -39,13 +39,18 @@ namespace Alarm
 
         private string _folder;
         private string xmlFile;                                //XML文件路径
-        
+        //private static readonly string _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, "Todo");
+        //private static readonly string _dataPath = System.IO.Path.Combine(_folder, "data.json");
 
         AlarmItem alarmItem = new AlarmItem();                       //用于添加和修改
 
         public MainWindow()
         {
             InitializeComponent();
+
+            _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, @"Alarm");
+            xmlFile = System.IO.Path.Combine(_folder, @"data.xml");
+            if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
 
             //设置回调
             this.callBackTick = new DoSomeCallBack(TickTimerElapsed);
@@ -58,9 +63,6 @@ namespace Alarm
             SetTickTimer();
             SetAlarmTimer();
 
-            _folder = System.IO.Path.Combine(Utils.Definitions.SettingFolder, @"clockfolder");
-            xmlFile = System.IO.Path.Combine(_folder, @"clockData.xml");
-            if (!Directory.Exists(_folder)) Directory.CreateDirectory(_folder);
 
         }
 

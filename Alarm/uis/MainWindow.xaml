@@ -1,4 +1,4 @@
-﻿<Window x:Class="Alarm.MainWindow"
+<Window x:Class="Alarm.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -32,7 +32,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Time" Binding="{Binding Time, Mode=TwoWay, StringFormat='yyyy/MM/dd HH:mm:ss'}" Width="170"/>
                 <DataGridTextColumn Header="Message" Binding="{Binding Msg, Mode=TwoWay, StringFormat ='0:Yes;;;No'}" Width="120"/>
-                <DataGridCheckBoxColumn Header="      State" Binding="{Binding State, Mode=TwoWay}" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}" Width="100"/>
+                <DataGridCheckBoxColumn Header="      State" Binding="{Binding State, Mode=TwoWay}" ElementStyle="{DynamicResource MaterialDesignDataGridCheckBoxColumnStyle}" Width="100"/>
             </DataGrid.Columns>
         </DataGrid>
 

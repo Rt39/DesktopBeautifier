@@ -1,4 +1,4 @@
-﻿<Window x:Class="Alarm.ItemWindow"
+<Window x:Class="Alarm.ItemWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,7 +15,7 @@
         <DatePicker x:Name="dpkDate" materialDesign:HintAssist.Hint="Pick Date"  Margin="43,50,191,0" Height="42" FontSize="18" VerticalAlignment="Top" />
         <TextBox x:Name="tbxMsg" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Enter Your Message" Height="38" Margin="43,129,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" FontSize="18"/>
 
-        <RadioButton x:Name="rbtOn" Style="{StaticResource MaterialDesignChoiceChipPrimaryRadioButton}" IsChecked="True" GroupName="GroupChoiceChip" Content="On" Margin="43,206,0,0" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" />
-        <RadioButton x:Name="rbtOff" Style="{StaticResource MaterialDesignChoiceChipPrimaryRadioButton}" IsChecked="False" GroupName="GroupChoiceChip" Content="Off" Margin="113,206,0,0" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <RadioButton x:Name="rbtOn" Style="{DynamicResource MaterialDesignChoiceChipPrimaryRadioButton}" IsChecked="True" GroupName="GroupChoiceChip" Content="On" Margin="43,206,0,0" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <RadioButton x:Name="rbtOff" Style="{DynamicResource MaterialDesignChoiceChipPrimaryRadioButton}" IsChecked="False" GroupName="GroupChoiceChip" Content="Off" Margin="113,206,0,0" Height="32" VerticalAlignment="Top" HorizontalAlignment="Left" />
     </Grid>
 </Window>
