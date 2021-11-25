@@ -42,10 +42,10 @@ namespace ImgEditLiteWPF
             InitializeComponent();
 
             //读入测试图片           
-            fName = @".\img\classroom.jpg";
+            //shaofName = @".\img\classroom.jpg";
             //将图片保存和显示
-            img = (Bitmap)System.Drawing.Image.FromFile(fName);
-            imgImg.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(this.img.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            //img = (Bitmap)System.Drawing.Image.FromFile(fName);
+            //imgImg.Source = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(this.img.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             //将图片入栈
             stack.push(new StackImg(
                 Convert.ToInt32(lblLDVal.Content),
