@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AE7CE367-0180-4E24-8E6E-77A0868BCC3F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Mascot</RootNamespace>
+    <AssemblyName>Mascot</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Mascot.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="API\BaiduUnit.cs" />
+    <Compile Include="Classes\ApplicationInfo.cs" />
+    <Compile Include="Classes\DesktopFileWatcher.cs" />
+    <Compile Include="Classes\FastPath.cs" />
+    <Compile Include="Classes\MenuNode.cs" />
+    <Compile Include="Forms\File.xaml.cs">
+      <DependentUpon>File.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilClass\Definitions.cs" />
+    <Compile Include="UtilClass\FileWatchSettings.cs" />
+    <Compile Include="UtilClass\JudgeUtil.cs" />
+    <Compile Include="Classes\PipeClient.cs" />
+    <Compile Include="Forms\Dialog.xaml.cs">
+      <DependentUpon>Dialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Process.xaml.cs">
+      <DependentUpon>Process.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UtilClass\PutInTray.cs" />
+    <Compile Include="API\Win32.cs" />
+    <Compile Include="UtilClass\Utils.cs" />
+    <Page Include="Forms\Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\File.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Process.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Angent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include=".editorconfig" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\frame\shime1.png" />
+    <Resource Include="Resources\frame\shime10.png" />
+    <Resource Include="Resources\frame\shime11.png" />
+    <Resource Include="Resources\frame\shime12.png" />
+    <Resource Include="Resources\frame\shime13.png" />
+    <Resource Include="Resources\frame\shime14.png" />
+    <Resource Include="Resources\frame\shime15.png" />
+    <Resource Include="Resources\frame\shime16.png" />
+    <Resource Include="Resources\frame\shime17.png" />
+    <Resource Include="Resources\frame\shime18.png" />
+    <Resource Include="Resources\frame\shime19.png" />
+    <Resource Include="Resources\frame\shime2.png" />
+    <Resource Include="Resources\frame\shime20.png" />
+    <Resource Include="Resources\frame\shime21.png" />
+    <Resource Include="Resources\frame\shime22.png" />
+    <Resource Include="Resources\frame\shime23.png" />
+    <Resource Include="Resources\frame\shime24.png" />
+    <Resource Include="Resources\frame\shime25.png" />
+    <Resource Include="Resources\frame\shime26.png" />
+    <Resource Include="Resources\frame\shime27.png" />
+    <Resource Include="Resources\frame\shime28.png" />
+    <Resource Include="Resources\frame\shime29.png" />
+    <Resource Include="Resources\frame\shime3.png" />
+    <Resource Include="Resources\frame\shime30.png" />
+    <Resource Include="Resources\frame\shime31.png" />
+    <Resource Include="Resources\frame\shime32.png" />
+    <Resource Include="Resources\frame\shime33.png" />
+    <Resource Include="Resources\frame\shime34.png" />
+    <Resource Include="Resources\frame\shime35.png" />
+    <Resource Include="Resources\frame\shime36.png" />
+    <Resource Include="Resources\frame\shime37.png" />
+    <Resource Include="Resources\frame\shime38.png" />
+    <Resource Include="Resources\frame\shime39.png" />
+    <Resource Include="Resources\frame\shime4.png" />
+    <Resource Include="Resources\frame\shime40.png" />
+    <Resource Include="Resources\frame\shime41.png" />
+    <Resource Include="Resources\frame\shime42.png" />
+    <Resource Include="Resources\frame\shime43.png" />
+    <Resource Include="Resources\frame\shime44.png" />
+    <Resource Include="Resources\frame\shime45.png" />
+    <Resource Include="Resources\frame\shime46.png" />
+    <Resource Include="Resources\frame\shime47.png" />
+    <Resource Include="Resources\frame\shime48.png" />
+    <Resource Include="Resources\frame\shime49.png" />
+    <Resource Include="Resources\frame\shime5.png" />
+    <Resource Include="Resources\frame\shime50.png" />
+    <Resource Include="Resources\frame\shime51.png" />
+    <Resource Include="Resources\frame\shime52.png" />
+    <Resource Include="Resources\frame\shime53.png" />
+    <Resource Include="Resources\frame\shime54.png" />
+    <Resource Include="Resources\frame\shime55.png" />
+    <Resource Include="Resources\frame\shime56.png" />
+    <Resource Include="Resources\frame\shime57.png" />
+    <Resource Include="Resources\frame\shime58.png" />
+    <Resource Include="Resources\frame\shime59.png" />
+    <Resource Include="Resources\frame\shime6.png" />
+    <Resource Include="Resources\frame\shime60.png" />
+    <Resource Include="Resources\frame\shime61.png" />
+    <Resource Include="Resources\frame\shime7.png" />
+    <Resource Include="Resources\frame\shime8.png" />
+    <Resource Include="Resources\frame\shime9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\tip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Tips.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\test.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Ok.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Forms\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Alarm\Alarm.csproj">
+      <Project>{a2f5bdfb-6257-4673-9119-f2a772cca2f4}</Project>
+      <Name>Alarm</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImgEditLiteWPF\ImgEditLiteWPF\ImgEditLiteWPF.csproj">
+      <Project>{4e674567-809d-40ee-8251-cf53889ed9f1}</Project>
+      <Name>ImgEditLiteWPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Note\Note.csproj">
+      <Project>{02097b64-5204-4b67-b38d-a462b85a14e9}</Project>
+      <Name>Note</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Todo\Todo.csproj">
+      <Project>{ae98c340-5545-4ee8-a380-8f63b7fe4168}</Project>
+      <Name>Todo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TranslatorWPF\TranslatorWPF.csproj">
+      <Project>{b756a27e-7d60-4183-9b1c-adcaeef37314}</Project>
+      <Name>TranslatorWPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{15e23515-5223-42e2-840d-f9a67f4739ea}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WallPaper\WallPaper.csproj">
+      <Project>{8d751aff-2edb-43db-9a50-854eb56b21fc}</Project>
+      <Name>WallPaper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

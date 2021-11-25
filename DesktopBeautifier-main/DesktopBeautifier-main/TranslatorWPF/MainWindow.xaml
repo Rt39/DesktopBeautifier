@@ -1,0 +1,18 @@
+﻿<Window x:Name="TransWPF" x:Class="TranslatorWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TranslatorWPF"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Translator" Height="592" Width="1080">
+    <Grid HorizontalAlignment="Right" Width="1080">
+        <Button x:Name="btnClr" Content="Clear" HorizontalAlignment="Left" Margin="943,42,0,0" VerticalAlignment="Top" Width="95" AutomationProperties.Name="btnClr" Click="btnClr_Click"/>
+        <Button x:Name="btnSwap" Content="⇌" HorizontalAlignment="Left" Margin="245,42,0,0" VerticalAlignment="Top" Width="75" Background="#00000000" BorderBrush="Transparent" Foreground="#FF3F51B5" FontSize="20" FontWeight="Normal" Click="btnSwap_Click"/>
+        <ComboBox x:Name="cbxSrc" HorizontalAlignment="Left" Margin="83,42,0,0" VerticalAlignment="Top" Width="136" Height="32" BorderBrush="#FF3F51B5" SelectionChanged="cbxSrc_SelectionChanged"/>
+        <ComboBox x:Name="cbxDst" HorizontalAlignment="Left" Margin="340,42,0,0" VerticalAlignment="Top" Width="136" Height="32" BorderBrush="#FF3F51B5"/>
+        <TextBox x:Name="tbxSrc" HorizontalAlignment="Left" Height="351" Margin="83,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="458" BorderBrush="#FF3F51B5" Foreground="DimGray" AutomationProperties.Name="tbxSrc" FontSize="18" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+        <TextBox x:Name="tbxDst" HorizontalAlignment="Left" Height="351" Margin="580,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="458" BorderBrush="#FF3F51B5" Foreground="#FF303030" AutomationProperties.Name="tbxDst" FontSize="18" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+    </Grid>
+</Window>

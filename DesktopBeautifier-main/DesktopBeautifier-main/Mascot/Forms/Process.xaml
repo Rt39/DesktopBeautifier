@@ -1,0 +1,39 @@
+﻿<Window x:Class="Mascot.Forms.Process"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Mascot.Forms"
+        mc:Ignorable="d"
+        Title="Process" Height="450" Width="800"  Background="#FFC88181" Icon="icon.ico">
+    <Grid>
+        <ListView x:Name="listView"  Margin="10,10,9.6,10" GridViewColumnHeader.Click="listView_Click"  ItemsSource="{Binding}" Background="#FFF3DDDD" FontSize="14" FontFamily="Ink Free"  >
+            <ListView.Resources>
+                <DataTemplate x:Key="IconTemplate">
+                    <Grid>
+                        <Image/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                   <!-- <GridViewColumn x:Name="IconColumn" DisplayMemberBinding="{Binding ApplicationIcon}">
+                        <GridViewColumn.Header>
+                            <TextBlock Width="40" TextAlignment="Center">图标</TextBlock>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image  />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>-->
+                    <GridViewColumn Header="进程" Width="180"  DisplayMemberBinding="{Binding ApplicationName}"/>
+                    <GridViewColumn Header="近期使用时间(min)" Width="140" DisplayMemberBinding="{Binding ApplicationRunIntervals}"/>
+                    <GridViewColumn Header="近期使用次数(次)" Width="140" DisplayMemberBinding="{Binding ApplicationClicks}"/>
+                    <GridViewColumn Header="进程路径" Width="300" DisplayMemberBinding="{Binding ApplicationPath}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>

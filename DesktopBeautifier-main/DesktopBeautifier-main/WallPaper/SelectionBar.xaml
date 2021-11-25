@@ -1,0 +1,32 @@
+﻿<Window x:Class="WallPaper.SelectionBar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WallPaper"
+        mc:Ignorable="d"
+        Title="选择栏" Height="435.6" Width="242.4">
+    <Grid Margin="0,0,-6.2,4.6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel x:Name="SP_interest" Height="288" Margin="10,40,10.2,0" VerticalAlignment="Top">
+            <RadioButton x:Name="rb_Landscape" Content="风景" Margin="30,10,0,0" FontSize="20" IsChecked="True" GroupName="Category"/>
+            <RadioButton x:Name="rb_Anime" Content="动漫" Margin="30,10,0,0" FontSize="20" GroupName="Category"/>
+            <RadioButton x:Name="rb_Pets" Content="宠物" Margin="30,10,0,0" FontSize="20" GroupName="Category"/>
+            <RadioButton x:Name="rb_ScienceFiction" Content="科幻" FontSize="20" Margin="30,10,0,0" GroupName="Category"/>
+            <RadioButton x:Name="rb_Games" Content="游戏" Margin="30,10,0,0" FontSize="20" GroupName="Category"/>
+            <RadioButton x:Name="rb_Sports" Content="体育" Margin="30,10,0,0" FontSize="20" GroupName="Category"/>
+            <RadioButton x:Name="rb_Others" Content="其他" Margin="30,10,0,0" FontSize="20" GroupName="Category"/>
+            <TextBox x:Name="txb_keyword" Height="30" TextWrapping="Wrap" Text="请输入关键字" Margin="50,10,21.2,0" FontSize="18"/>
+        </StackPanel>
+        <Button x:Name="btn_search" Content="开始搜索" Margin="57,340,63.2,30" VerticalAlignment="Top" Height="30" FontSize="20" Click="btn_search_Click"/>
+        <StackPanel x:Name="SP1" Height="35" Margin="10,0" Width="199" Orientation="Horizontal" VerticalAlignment="Top">
+            <Button x:Name="btn_interest" Content="搜索" Margin="0,0,0,0.2" Width="99" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="btn_interest_Click"/>
+            <Button x:Name="btn_recommend" Content="推送" Width="99" Margin="0,0,0,0.2" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Click="btn_recommend_Click"/>
+        </StackPanel>
+        <Label x:Name="lbl_recommend" Content="暂无新壁纸推送" HorizontalAlignment="Left" Margin="37,152,0,0" VerticalAlignment="Top" Width="147" Height="33" FontSize="18" Visibility="Hidden"/>
+        <Button x:Name="btn_examine" Content="查看" HorizontalAlignment="Left" Margin="57,240,0,0" VerticalAlignment="Top" Width="99" Height="34" FontSize="16" Click="btn_examine_Click" Visibility="Hidden"/>
+
+    </Grid>
+</Window>

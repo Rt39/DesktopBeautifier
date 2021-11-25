@@ -1,0 +1,17 @@
+﻿<Window x:Class="ImgEditLiteWPF.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImgEditLiteWPF"
+        mc:Ignorable="d"
+        Title="AboutWindow" Height="308" Width="516.041" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="图片处理器" HorizontalAlignment="Left" Margin="46,38,0,0" VerticalAlignment="Top" Width="207" FontWeight="Bold" FontSize="18"/>
+        <Label Content="Based on Microsoft Visual Studio Community 2019" HorizontalAlignment="Left" Margin="46,79,0,0" VerticalAlignment="Top" Width="326"/>
+        <Label Content="Built on November 8 2021" HorizontalAlignment="Left" Margin="46,107,0,0" VerticalAlignment="Top" Width="207"/>
+        <Label Content="From version 1.0" HorizontalAlignment="Left" Margin="46,135,0,0" VerticalAlignment="Top" Width="207"/>
+        <Label Content="Copyright © 2021 WHUCSTeam. All rights reserved." HorizontalAlignment="Left" Margin="46,163,0,0" VerticalAlignment="Top" Width="316"/>
+        <Button x:Name="btnClose" Content="关闭" HorizontalAlignment="Left" Margin="377,217,0,0" VerticalAlignment="Top" Width="91" Click="btnClose_Click"/>
+    </Grid>
+</Window>
